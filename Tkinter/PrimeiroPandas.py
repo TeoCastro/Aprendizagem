@@ -15,6 +15,10 @@ def prijanela():
     texto2 = Label(tela_inicial, text=cpf, width=20, justify=LEFT, bg="blue")
     texto2.pack(side=LEFT, fill=BOTH, expand=1)
 
+# quarto Label
+    texto2 = Label(tela_inicial, text=bairro, width=20, justify=LEFT, bg="pink")
+    texto2.pack(side=LEFT, fill=BOTH, expand=1)
+
     tela_inicial.mainloop()
 
 
@@ -26,6 +30,7 @@ tabclientes = pd.DataFrame(clientes)
 sexo = clientes['SEXO']
 nome = clientes['NOME']
 cpf = clientes['CPF']
+bairro = clientes['BAIRRO']
 
 
 
