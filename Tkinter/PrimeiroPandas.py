@@ -1,5 +1,6 @@
 import pandas as pd
-import numpy
+import numpy as np
+import matplotlib.pyplot as plt
 from tkinter import *
 
 def prijanela():
@@ -43,5 +44,9 @@ bairro = clientes['BAIRRO'].fillna(' ')
 telefone = clientes['TELEFONE'].fillna(' ')
 datanasc = clientes['DATA DE NASC'].fillna(' ')
 queixainicial = clientes['QUEIXA INICIAL'].fillna(' ')
+plt.plot(clientes['TELEFONE'])
+plt.show()
+plt.pie(clientes['TELEFONE'])
+plt.show()
 
 prijanela()
