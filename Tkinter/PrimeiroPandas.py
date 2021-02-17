@@ -40,9 +40,10 @@ def prijanela():
 
 
 clientes = pd.read_excel('C:/Users/siuit/Documents/Python/PLANILHA_CLIENTES.XLSX')
-tabclientes = pd.DataFrame(clientes)
+#tabclientes = pd.DataFrame(clientes)
 #print(tabclientes)
-tabclientes.head()
+#tabclientes.head(30)
+clientes.head(30)
 
 sexo = clientes['SEXO'].fillna(' ')
 nome = clientes['NOME'].fillna(' ')
