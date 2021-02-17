@@ -1,14 +1,34 @@
 from  tkinter import *
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import sqlite3
 
 
 def impdados():
     print('Oi')
     final.set( edit_inicial.get())
 
+
+#=================== CRIANDO E APRESENTANDO A JANELA PRINCIPAL ==================
+
 tela_inicial = Tk()
 tela_inicial.title('Janela Principal')
 tela_inicial.geometry("600x500")
 
+
+#==================== CARREGANDO PLANILHA DE CLIENTES DO EXCEL ===================
+
+clientes = pd.read_excel('C:/Users/siuit/Documents/Python/PLANILHA_CLIENTES.XLSX')
+
+
+#==================== CRIANDO BANCO DE DADOS E TABELA ============================
+
+banco = sqlite3.connect('Banco_Clientes.db')
+cursor = banco.cursor()
+cursor.execute("CREATE TABLE IF NOT EXISTS clientes (NOME text, IDADE integer, DATA date, TELEFONE text, HIPOTESE text, PRIMEIRO text, OUTROS text)")
+
+#==================== CRIANDO VARIACEL ===========================================
 
 final = StringVar()
 final.set('NOME')
