@@ -10,17 +10,31 @@ def impdados():
     final.set( edit_inicial.get())
 
 def insdados():
-    inicial1 = edit_inicial.get()
-    primeiro1 = edit_primeiro.get()
+    inicial1=edit_inicial.get()
+    primeiro1 = edit_primeiro.get("1.0", 'end')
     idade1 = edit_idade.get()
     dataInicio = edit_data.get()
     telefone1 = edit_telefone.get()
     hipotese1 = edit_hipotese.get()
-    outros1 = edit_outros.get()
+    outros1 = edit_outros.get("1.0", 'end')
 
-    cursor.execute('INSERT INTO clientes(NOME,IDADE,DATA,TELEFONE, HIPOTESE,PRIMEIRO,OUTROS)VALUES(?,?,?,?,?,?,?)',(inicial1,idade1,dataInicio,telefone1, hipotese1,primeiro1,outros1))
+    #cursor.execute('INSERT INTO clientes(NOME,IDADE,DATA,TELEFONE, HIPOTESE,PRIMEIRO,OUTROS)VALUES(?,?,?,?,?,?,?)',(inicial1,idade1,dataInicio,telefone1, hipotese1,primeiro1,outros1))
+    
+    edit_inicial.delete(0,END)
+    edit_primeiro.delete(1.0,END+'-1c')
+    edit_idade.delete(0,END)
+    edit_data.delete(0,END)
+    edit_telefone.delete(0,END)
+    edit_hipotese.delete(0,END)
+    edit_outros.delete(1.0,END+'-1c')
 
-
+    print(inicial1)
+    print(idade1)
+    print(dataInicio)
+    print(telefone1) 
+    print(hipotese1)
+    print(primeiro1)
+    print(outros1)
 
 
 
@@ -30,6 +44,12 @@ tela_inicial = Tk()
 tela_inicial.title('Janela Principal')
 tela_inicial.geometry("1150x700")
 
+inicial1 = ''
+primeiro1 =''
+idade1 = ''
+dataInicio = ''
+hipotese1 = ''
+outros1 = ''
 
 #==================== CARREGANDO PLANILHA DE CLIENTES DO EXCEL ===================
 
@@ -78,9 +98,10 @@ edit_outros = Text()
 edit_primeiro=Text()
 
 
+
 #===================== CRIANDO BOTÃO ========================================
 
-botao_inicial = Button(tela_inicial,text="Imprimir", command=impdados)
+botao_inicial = Button(tela_inicial,text="Imprimir", command=insdados)
 
 
 
