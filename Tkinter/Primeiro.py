@@ -6,8 +6,9 @@ import sqlite3
 
 
 def impdados():
-    print( 'Oi' )
-    final.set( edit_inicial.get() )
+    edit_outros.pack_forget()
+
+
 
 
 def insdados():
@@ -63,7 +64,7 @@ def semComando():
 # =================== CRIANDO E APRESENTANDO A JANELA PRINCIPAL ==================
 
 tela_inicial = Tk()
-tela_inicial.title( 'Janela Principal' )
+tela_inicial.title( 'Janela Consulta' )
 tela_inicial.geometry( "1150x700" )
 
 
@@ -126,7 +127,7 @@ edit_primeiro = Text()
 # ===================== CRIANDO BOTÃO ========================================
 
 botao_inicial = Button( tela_inicial, text="Imprimir", command=insdados )
-botao_mostrar = Button( tela_inicial, text='Mostrar', command=mostrar )
+botao_mostrar = Button( tela_inicial, text='Mostrar', command=impdados )
 
 # ===================== MOSTRANDO LABEL ======================================
 
