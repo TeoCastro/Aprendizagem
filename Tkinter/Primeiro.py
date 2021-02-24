@@ -56,11 +56,16 @@ def semComando():
     print( '' )
 
 
+
+
+
+
 # =================== CRIANDO E APRESENTANDO A JANELA PRINCIPAL ==================
 
 tela_inicial = Tk()
 tela_inicial.title( 'Janela Principal' )
 tela_inicial.geometry( "1150x700" )
+
 
 # =================== INICIANDO AS VARIÁVEIS ANTES DE RODAR A FUNÇÃO =============
 
@@ -72,16 +77,16 @@ dataInicio = ''
 hipotese1 = ''
 outros1 = ''
 
-# ==================== CARREGANDO PLANILHA DE CLIENTES DO EXCEL ===================
+''' ==================== CARREGANDO PLANILHA DE CLIENTES DO EXCEL ===================
 
-# clientes = pd.read_excel('C:/Users/siuit/Documents/Python/Aprendizagem/Clientes do consultório.xlsx')
+clientes = pd.read_excel('C:/Users/siuit/Documents/Python/Aprendizagem/Clientes do consultório.xlsx')
 
-# nome = clientes['NOME'].fillna(' ')
-# idade_clientes = clientes['IDADE'].fillna(' ')
-# sexo = clientes['SEXO'].fillna(' ')
-# telefone = clientes['TELEFONE'].fillna(' ')
-# bairro = clientes['BAIRRO'].fillna(' ')
-# queixainicial = clientes['QUEIXA INICIAL'].fillna(' ')
+nome = clientes['NOME'].fillna(' ')
+idade_clientes = clientes['IDADE'].fillna(' ')
+sexo = clientes['SEXO'].fillna(' ')
+telefone = clientes['TELEFONE'].fillna(' ')
+bairro = clientes['BAIRRO'].fillna(' ')
+queixainicial = clientes['QUEIXA INICIAL'].fillna(' ')'''
 
 
 # ==================== CRIANDO BANCO DE DADOS E TABELA ============================
@@ -160,7 +165,7 @@ menuContatos.add_command(label='FECHAR', command=tela_inicial.quit)
 
 barraDeMenus.add_cascade(label='Contatos', menu=menuContatos )
 
-tela_inicial.config( menu=barraDeMenus )
+tela_inicial.config(menu=barraDeMenus )
 
 # ====================== MOSTRANDO JANELA PRINCIPAL =======================
 
