@@ -52,7 +52,11 @@ def mostrar():
     cursor.execute( 'SELECT * FROM clientes' )
     pesq = cursor.fetchall()
     print( pesq )
-
+    print("Número total de registros retornados: ", cursor.rowcount)
+    for linha in pesq:
+        print("Id:", linha[0])
+        print("Nome:", linha[1])
+        print("Sobrenome:", linha[2], "\n")
 
 def semComando():
     print( '' )
