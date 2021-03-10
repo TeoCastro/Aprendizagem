@@ -54,9 +54,9 @@ def mostrar():
     print( pesq )
     print("Número total de registros retornados: ", cursor.rowcount)
     for linha in pesq:
-        print("Id:", linha[0])
-        print("Nome:", linha[1])
-        print("Sobrenome:", linha[2], "\n")
+        print("Nome:", linha[0])
+        print("Idade:", linha[1])
+        print("Início:", linha[2], "\n")
 
 def semComando():
     print( '' )
@@ -133,6 +133,7 @@ edit_primeiro = Text()
 
 botao_inicial = Button( tela_inicial, text="Imprimir", command=insdados )
 botao_mostrar = Button( tela_inicial, text='Mostrar', command=impdados )
+lb_registro = Listbox(tela_inicial)
 
 # ===================== MOSTRANDO LABEL ======================================
 
