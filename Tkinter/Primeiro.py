@@ -49,8 +49,9 @@ def insdados():
 def mostrar():
     # =============== MOSTRAR OS REGISTROS ========================================
 
-    cursor.execute( 'SELECT*FROM clientes' )
-    print( cursor.fetchall() )
+    cursor.execute( 'SELECT * FROM clientes' )
+    pesq = cursor.fetchall()
+    print( pesq )
 
 
 def semComando():
@@ -159,7 +160,7 @@ edit_telefone.place( x=717, y=80 )
 barraDeMenus = Menu(tela_inicial )
 menuContatos = Menu(barraDeMenus, tearoff=0 )
 menuContatos.add_command(label='NOVO', command=semComando )
-menuContatos.add_command(label='PESQUISAR', command=semComando )
+menuContatos.add_command(label='PESQUISAR', command= mostrar )
 menuContatos.add_command(label='DELETAR', command=semComando )
 menuContatos.add_separator()
 menuContatos.add_command(label='FECHAR', command=tela_inicial.quit)
