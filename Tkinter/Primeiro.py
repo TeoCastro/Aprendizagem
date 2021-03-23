@@ -34,7 +34,7 @@ def semComando():
     print('')
 
 
-def salv_reg():
+def salv_reg(inicial1,primeiro1,idade1,dataInicio,hipotese1,outros1,telefone1):
     # =========================================== GRAVANDO O REGISTRO =============================================
  
     cursor.execute('INSERT INTO clientes(NOME,IDADE,DATA,TELEFONE, HIPOTESE,PRIMEIRO,OUTROS)VALUES(?,?,?,?,?,?,?)',
@@ -86,15 +86,15 @@ def ins_janela():
  
     # =========================================== LIMPANDO OS CAMPOS ==============================================
 
-    edit_inicial.delete(0, END)
+    '''edit_inicial.delete(0, END)
     edit_primeiro.delete(1.0, END + '-1c')
     edit_idade.delete(0, END)
     edit_data.delete(0, END)
     edit_telefone.delete(0, END)
     edit_hipotese.delete(0, END)
-    edit_outros.delete(1.0, END + '-1c')
+    edit_outros.delete(1.0, END + '-1c')'''
 
-    print(inicial1)
+    print()
     print(idade1)
     print(dataInicio)
     print(telefone1)
@@ -105,7 +105,7 @@ def ins_janela():
     # =========================================== CRIANDO CAIXA DE TEXTO =================================================
     # =============================================== CRIANDO BOTÃO ======================================================
 
-    botao_inicial = Button(topins, text="SALVAR", command=salv_reg)
+    botao_inicial = Button(topins, text="SALVAR", command=salv_reg(edit_inicial.get(),edit_primeiro.get("1.0", 'end'),edit_idade.get(),edit_data.get(), edit_hipotese.get(),edit_outros.get("1.0", 'end'),edit_telefone.get() ))
     botao_mostrar = Button(topins, text='Mostrar', command=nova_janela)
 
 
@@ -168,6 +168,7 @@ dataInicio = ''
 hipotese1 = ''
 outros1 = ''
 telefone1 = ''
+
 
 # ===================================== CRIANDO BANCO DE DADOS E TABELA ===============================================
 
