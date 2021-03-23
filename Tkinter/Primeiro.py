@@ -6,9 +6,6 @@ from tkinter import *
 =============================================================================================================='''
 
 
-def impdados():
-    edit_outros.pack_forget()
-
 
 def nova_janela():
     # ============================== CRIANDO NOVA JANELA PARA MOSTRAR OS REGISTROS ================================
@@ -30,53 +27,20 @@ def nova_janela():
         lb_registro.insert(END, linha[0])
 
 
-def insdados():
-    '''inicial1 = edit_inicial.get()
-    primeiro1 = edit_primeiro.get("1.0", 'end')
-    idade1 = edit_idade.get()
-    dataInicio = edit_data.get()
-    telefone1 = edit_telefone.get()
-    hipotese1 = edit_hipotese.get()
-    outros1 = edit_outros.get("1.0", 'end')
 
-    # =========================================== GRAVANDO O REGISTRO =============================================
-
-    cursor.execute('INSERT INTO clientes(NOME,IDADE,DATA,TELEFONE, HIPOTESE,PRIMEIRO,OUTROS)VALUES(?,?,?,?,?,?,?)',
-                    (inicial1, idade1, dataInicio, telefone1, hipotese1, primeiro1, outros1))
-
-    banco.commit()
-
-    # =========================================== LIMPANDO OS CAMPOS ==============================================
-
-    edit_inicial.delete(0, END)
-    edit_primeiro.delete(1.0, END + '-1c')
-    edit_idade.delete(0, END)
-    edit_data.delete(0, END)
-    edit_telefone.delete(0, END)
-    edit_hipotese.delete(0, END)
-    edit_outros.delete(1.0, END + '-1c')'''
-
-    print(inicial1)
-    print(idade1)
-    print(dataInicio)
-    print(telefone1)
-    print(hipotese1)
-    print(primeiro1)
-    print(outros1)
 
 
 def semComando():
     print('')
 
 
-'''def preencher():
-    edit_inicial.get = ''
-    edit_idade.get = ''
-    edit_telefone.get = ''
-    edit_data.get = ''
-    edit_hipotese.get = ''
-    edit_outros.get = ''
-    edit_primeiro.get = '' '''
+def salv_reg():
+    # =========================================== GRAVANDO O REGISTRO =============================================
+ 
+    cursor.execute('INSERT INTO clientes(NOME,IDADE,DATA,TELEFONE, HIPOTESE,PRIMEIRO,OUTROS)VALUES(?,?,?,?,?,?,?)',
+    (inicial1, idade1, dataInicio, telefone1, hipotese1, primeiro1, outros1))
+
+    banco.commit()
 
 def janela_principal():
     # ============================================= CONSTRUINDO MENUS ====================================================
@@ -118,13 +82,8 @@ def ins_janela():
     hipotese1 = edit_hipotese.get()
     outros1 = edit_outros.get("1.0", 'end')
 
-    # =========================================== GRAVANDO O REGISTRO =============================================
 
-    cursor.execute('INSERT INTO clientes(NOME,IDADE,DATA,TELEFONE, HIPOTESE,PRIMEIRO,OUTROS)VALUES(?,?,?,?,?,?,?)',
-                    (inicial1, idade1, dataInicio, telefone1, hipotese1, primeiro1, outros1))
-
-    banco.commit()
-
+ 
     # =========================================== LIMPANDO OS CAMPOS ==============================================
 
     edit_inicial.delete(0, END)
@@ -144,13 +103,16 @@ def ins_janela():
     print(outros1)
 
     # =========================================== CRIANDO CAIXA DE TEXTO =================================================
+    # =============================================== CRIANDO BOTÃO ======================================================
+
+    botao_inicial = Button(topins, text="SALVAR", command=salv_reg)
+    botao_mostrar = Button(topins, text='Mostrar', command=nova_janela)
 
 
+    # ===================================== MOSTRANDO CAIXA DE TEXTO E BOTÃO =============================================
 
-        # ===================================== MOSTRANDO CAIXA DE TEXTO E BOTÃO =============================================
-
-    '''botao_mostrar.place(x=610, y=630, width=100, height=40)
-    botao_inicial.place(x=450, y=630, width=100, height=40)'''
+    botao_mostrar.place(x=610, y=630, width=100, height=40)
+    botao_inicial.place(x=450, y=630, width=100, height=40)
     edit_inicial.place(x=20, y=80, width=400)
     edit_idade.place(x=533, y=80, width=30)
     edit_hipotese.place(x=100, y=180, width=930)
@@ -168,10 +130,7 @@ def ins_janela():
     lhipotese = Label(topins, text='HIPÓTESE DIAGNÓSTICA')
     lprimeiro = Label(topins, text='PRIMEIRO ATENDIMENTO')
     loutros = Label(topins, text='OUTROS ATENDIMENTOS')
-    # =============================================== CRIANDO BOTÃO ======================================================
 
-    botao_inicial = Button(topins, text="Imprimir", command=semComando)
-    botao_mostrar = Button(topins, text='Mostrar', command=nova_janela)
 
     # ============================================== MOSTRANDO LABEL =====================================================
     lcadastro.place(x=490, y=10)
@@ -208,6 +167,7 @@ idade1 = ''
 dataInicio = ''
 hipotese1 = ''
 outros1 = ''
+telefone1 = ''
 
 # ===================================== CRIANDO BANCO DE DADOS E TABELA ===============================================
 
