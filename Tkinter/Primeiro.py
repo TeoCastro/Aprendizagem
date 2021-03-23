@@ -31,6 +31,85 @@ def nova_janela():
 
 
 def insdados():
+    '''inicial1 = edit_inicial.get()
+    primeiro1 = edit_primeiro.get("1.0", 'end')
+    idade1 = edit_idade.get()
+    dataInicio = edit_data.get()
+    telefone1 = edit_telefone.get()
+    hipotese1 = edit_hipotese.get()
+    outros1 = edit_outros.get("1.0", 'end')
+
+    # =========================================== GRAVANDO O REGISTRO =============================================
+
+    cursor.execute('INSERT INTO clientes(NOME,IDADE,DATA,TELEFONE, HIPOTESE,PRIMEIRO,OUTROS)VALUES(?,?,?,?,?,?,?)',
+                    (inicial1, idade1, dataInicio, telefone1, hipotese1, primeiro1, outros1))
+
+    banco.commit()
+
+    # =========================================== LIMPANDO OS CAMPOS ==============================================
+
+    edit_inicial.delete(0, END)
+    edit_primeiro.delete(1.0, END + '-1c')
+    edit_idade.delete(0, END)
+    edit_data.delete(0, END)
+    edit_telefone.delete(0, END)
+    edit_hipotese.delete(0, END)
+    edit_outros.delete(1.0, END + '-1c')'''
+
+    print(inicial1)
+    print(idade1)
+    print(dataInicio)
+    print(telefone1)
+    print(hipotese1)
+    print(primeiro1)
+    print(outros1)
+
+
+def semComando():
+    print('')
+
+
+'''def preencher():
+    edit_inicial.get = ''
+    edit_idade.get = ''
+    edit_telefone.get = ''
+    edit_data.get = ''
+    edit_hipotese.get = ''
+    edit_outros.get = ''
+    edit_primeiro.get = '' '''
+
+def janela_principal():
+    # ============================================= CONSTRUINDO MENUS ====================================================
+
+    barraDeMenus = Menu(tela_inicial )
+    menuContatos = Menu(barraDeMenus, tearoff=0)
+    menuContatos.add_command(label='NOVO', command=ins_janela)
+    menuContatos.add_command(label='PESQUISAR', command=nova_janela)
+    menuContatos.add_command(label='DELETAR', command=semComando)
+    menuContatos.add_separator()
+    menuContatos.add_command(label='FECHAR', command=tela_inicial.quit)
+    barraDeMenus.add_cascade(label='Contatos', menu=menuContatos)
+    tela_inicial.config(menu=barraDeMenus)
+    tela_inicial.mainloop()
+
+
+def ins_janela():
+    # ============================== CRIANDO NOVA JANELA PARA MOSTRAR OS REGISTROS ================================
+
+    topins = Toplevel()
+    topins.title('Janela Inserir')
+    topins.geometry("1150x700")
+
+
+    edit_inicial = Entry(topins)
+    edit_idade = Entry(topins)
+    edit_telefone = Entry(topins)
+    edit_data = Entry(topins)
+    edit_hipotese = Entry(topins)
+    edit_outros = Text(topins)
+    edit_primeiro = Text(topins)
+
+
     inicial1 = edit_inicial.get()
     primeiro1 = edit_primeiro.get("1.0", 'end')
     idade1 = edit_idade.get()
@@ -64,51 +143,9 @@ def insdados():
     print(primeiro1)
     print(outros1)
 
-
-def semComando():
-    print('')
-
-
-def preencher():
-    edit_inicial.get = ''
-    edit_idade.get = ''
-    edit_telefone.get = ''
-    edit_data.get = ''
-    edit_hipotese.get = ''
-    edit_outros.get = ''
-    edit_primeiro.get = ''
-
-def janela_principal():
-    # ============================================= CONSTRUINDO MENUS ====================================================
-
-    barraDeMenus = Menu(tela_inicial )
-    menuContatos = Menu(barraDeMenus, tearoff=0)
-    menuContatos.add_command(label='NOVO', command=ins_janela)
-    menuContatos.add_command(label='PESQUISAR', command=nova_janela)
-    menuContatos.add_command(label='DELETAR', command=semComando)
-    menuContatos.add_separator()
-    menuContatos.add_command(label='FECHAR', command=tela_inicial.quit)
-    barraDeMenus.add_cascade(label='Contatos', menu=menuContatos)
-    tela_inicial.config(menu=barraDeMenus)
-    tela_inicial.mainloop()
-
-
-def ins_janela():
-    # ============================== CRIANDO NOVA JANELA PARA MOSTRAR OS REGISTROS ================================
-
-    topins = Toplevel()
-    topins.title('Janela Inserir')
-    topins.geometry("1150x700")
-
     # =========================================== CRIANDO CAIXA DE TEXTO =================================================
 
-    edit_inicial = Entry(topins)
-    edit_idade = Entry(topins)
-    edit_telefone = Entry(topins)
-    edit_data = Entry(topins)
-    edit_hipotese = Entry(topins)
-    edit_outros = Text(topins)
-    edit_primeiro = Text(topins)
+
 
         # ===================================== MOSTRANDO CAIXA DE TEXTO E BOTÃO =============================================
 
