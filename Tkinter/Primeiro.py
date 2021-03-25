@@ -34,11 +34,13 @@ def semComando():
     print('')
 
 
-def salv_reg(inicial1,primeiro1,idade1,dataInicio,hipotese1,outros1,telefone1):
+def salv_reg(inicial2,primeiro2,idade2,dataInicio2,hipotese2,outros2,telefone2):
+    #print(inicial2)
+    
     # =========================================== GRAVANDO O REGISTRO =============================================
  
     cursor.execute('INSERT INTO clientes(NOME,IDADE,DATA,TELEFONE, HIPOTESE,PRIMEIRO,OUTROS)VALUES(?,?,?,?,?,?,?)',
-    (inicial1, idade1, dataInicio, telefone1, hipotese1, primeiro1, outros1))
+    (inicial2, idade2, dataInicio2, telefone2, hipotese2, primeiro2, outros2))
 
     banco.commit()
 
@@ -74,7 +76,9 @@ def ins_janela():
     edit_primeiro = Text(topins)
 
 
+
     inicial1 = edit_inicial.get()
+    print (inicial1)
     primeiro1 = edit_primeiro.get("1.0", 'end')
     idade1 = edit_idade.get()
     dataInicio = edit_data.get()
@@ -82,7 +86,7 @@ def ins_janela():
     hipotese1 = edit_hipotese.get()
     outros1 = edit_outros.get("1.0", 'end')
 
-
+# inicial1,primeiro1,idade1,dataInicio,hipotese1,outros1,telefone1
  
     # =========================================== LIMPANDO OS CAMPOS ==============================================
 
@@ -94,18 +98,18 @@ def ins_janela():
     edit_hipotese.delete(0, END)
     edit_outros.delete(1.0, END + '-1c')'''
 
-    print()
+    '''print('Geraldo')
     print(idade1)
     print(dataInicio)
     print(telefone1)
     print(hipotese1)
     print(primeiro1)
-    print(outros1)
+    print(outros1)'''
 
     # =========================================== CRIANDO CAIXA DE TEXTO =================================================
     # =============================================== CRIANDO BOTÃO ======================================================
 
-    botao_inicial = Button(topins, text="SALVAR", command=salv_reg(edit_inicial.get(),edit_primeiro.get("1.0", 'end'),edit_idade.get(),edit_data.get(), edit_hipotese.get(),edit_outros.get("1.0", 'end'),edit_telefone.get() ))
+    botao_inicial = Button(topins, text='Salvar', command=salv_reg(inicial1,primeiro1,idade1,dataInicio,hipotese1,outros1,telefone1))
     botao_mostrar = Button(topins, text='Mostrar', command=nova_janela)
 
 
@@ -158,16 +162,20 @@ def ins_janela():
 
 tela_inicial = Tk()
 tela_inicial.title('Janela Consulta')
-tela_inicial.geometry("1150x700")
+tela_inicial.geometry("1250x700 + 600 + 600")
+#tela_inicial.geometry("1150x700")
 # ================================= INICIANDO AS VARIÁVEIS ANTES DE RODAR A FUNÇÃO ===================================
 
-inicial1 = ''
+
+
+'''inicial1 = ''
 primeiro1 = ''
 idade1 = ''
 dataInicio = ''
 hipotese1 = ''
 outros1 = ''
-telefone1 = ''
+telefone1 = '' '''
+
 
 
 # ===================================== CRIANDO BANCO DE DADOS E TABELA ===============================================
