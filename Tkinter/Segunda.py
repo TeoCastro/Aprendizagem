@@ -76,17 +76,27 @@ class Janelas():
         
 
     def mostrar(self):
-        # ===================================== MOSTRANDO CAIXA DE TEXTO E BOTÃO =============================================
+        # =============== MOSTRANDO CAIXA DE TEXTO E BOTÃO ================
 
-        self.botao_mostrar.place(x=750, y=630, width=100, height=40)
-        self.botao_inicial.place(x=550, y=630, width=100, height=40)
-        self.edit_inicial.place(x=40, y=40, width=400)
-        self.edit_idade.place(x=500, y=40, width=30)
-        self.edit_hipotese.place(x=180, y=100, width=930)
-        self.edit_primeiro.place(x=20, y=150, width=1200, height=100)
-        self.edit_outros.place(x=20, y=280, width=1200, height=120)
-        self.edit_data.place(x=933, y=40)
-        self.edit_telefone.place(x=717, y=40)
+        self.botao_mostrar.place(x=750, y=650, width=70, height=20)
+        self.botao_inicial.place(x=550, y=650, width=70, height=20)
+        self.edit_inicial.place(x=40, y=70, width=400)
+        self.edit_idade.place(x=500, y=70, width=30)
+        self.edit_hipotese.place(x=180, y=145, width=930)
+        self.edit_primeiro.place(x=20, y=190, width=1280, height=100)
+        self.edit_outros.place(x=20, y=320, width=1280, height=100)
+        self.edit_data.place(x=933, y=70)
+        self.edit_telefone.place(x=717, y=70)
+
+        # ============================================== MOSTRANDO LABEL =====================================================
+        self.lcadastro.place(x=550, y=20)
+        self.label_inicial.place(x=19, y=45)
+        self.lidade.place(x=530, y=45)
+        self.ldata_inicio.place(x=930, y=45)
+        self.ltelefone.place(x=710, y=45)
+        self.lhipotese.place(x=550, y=120)
+        self.lprimeiro.place(x=19, y=165)
+        self.loutros.place(x=19, y=295)
 
 
 
