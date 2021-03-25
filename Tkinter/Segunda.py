@@ -25,8 +25,10 @@ class Janelas():
     def frame_tela(self):
         self.frame_dados = Frame(self.janela)
         self.frame_dados.place(relx=0.009, rely=0.01, relwidth=0.985, relheight=0.3)
+        self.frame_dados.configure(background='brown')
         self.frame_dados2 = Frame(self.janela)
         self.frame_dados2.place(relx=0.009, rely=0.32, relwidth=0.985, relheight=0.65)
+        self.frame_dados2.configure(background='brown')
 
     
     def semComando():
@@ -78,12 +80,12 @@ class Janelas():
     def mostrar(self):
         # =============== MOSTRANDO CAIXA DE TEXTO E BOTÃO ================
 
-        self.botao_mostrar.place(x=750, y=650, width=70, height=20)
-        self.botao_inicial.place(x=550, y=650, width=70, height=20)
+        self.botao_mostrar.place(relx=0.55, rely=0.925, relwidth=0.05, relheight=0.03)
+        self.botao_inicial.place(relx=0.35, rely=0.925, relwidth=0.05, relheight=0.03)
         self.edit_inicial.place(x=40, y=70, width=400)
         self.edit_idade.place(x=500, y=70, width=30)
         self.edit_hipotese.place(x=180, y=145, width=930)
-        self.edit_primeiro.place(x=20, y=190, width=1280, height=100)
+        self.edit_primeiro.place(relx=0.015, rely=0.43, relwidth=0.05, relheight=0.03)
         self.edit_outros.place(x=20, y=320, width=1280, height=100)
         self.edit_data.place(x=933, y=70)
         self.edit_telefone.place(x=717, y=70)
