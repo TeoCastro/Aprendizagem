@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import ttk
 import pandas as pd
 import sqlite3
 
@@ -13,6 +14,7 @@ class Janelas():
         self.menus()
         self.preencher()
         self.mostrar()
+        self.lista_frame()
         janela.mainloop()
 
 
@@ -61,45 +63,65 @@ class Janelas():
 
         #=============== CRIANDO LABEL ====================================
 
-        self.lcadastro = Label(self.frame_dados2, text='CADASTRO DE CLIENTES')
-        self.label_inicial = Label( self.frame_dados2, text='NOME')
-        self.lidade = Label(self.frame_dados2, text='IDADE')
-        self.ldata_inicio = Label(self.frame_dados2, text='DATA DE INICIO' )
-        self.ltelefone = Label(self.frame_dados2, text='TELEFONE')
-        self.lhipotese = Label(self.frame_dados2, text='HIPÓTESE DIAGNÓSTICA')
-        self.lprimeiro = Label(self.frame_dados2, text='PRIMEIRO ATENDIMENTO')
-        self.loutros = Label(self.frame_dados2, text='OUTROS ATENDIMENTOS')
+        self.lcadastro = Label(self.frame_dados2,bg="#808000",font=('white',16,'bold'), text='CADASTRO DE CLIENTES')
+        self.label_inicial = Label( self.frame_dados2,font=('blak',11,'bold'),bg='brown', text='NOME')
+        self.lidade = Label(self.frame_dados2,font=('blak',11,'bold'),bg='brown', text='IDADE')
+        self.ldata_inicio = Label(self.frame_dados2,font=('blak',11,'bold'),bg='brown', text='DATA DE INICIO' )
+        self.ltelefone = Label(self.frame_dados2,font=('blak',11,'bold'),bg='brown', text='TELEFONE')
+        self.lhipotese = Label(self.frame_dados2,font=('blak',11,'bold'),bg='brown', text='HIPÓTESE DIAGNÓSTICA')
+        self.lprimeiro = Label(self.frame_dados2,font=('blak',11,'bold'),bg='brown', text='PRIMEIRO ATENDIMENTO')
+        self.loutros = Label(self.frame_dados2,font=('blak',11,'bold'),bg='brown', text='OUTROS ATENDIMENTOS')
 
         # ======================= CRIANDO BOTÃO ===========================
 
-        self.botao_inicial = Button(self.janela, text='Salvar', command=self.semComando)
-        self.botao_mostrar = Button(self.janela, text='Mostrar', command=self.semComando)
+        self.botao_inicial = Button(self.janela, text='Salvar',bd=4, command=self.semComando)
+        self.botao_mostrar = Button(self.janela, text='Mostrar',bd=4, command=self.semComando)
 
         
 
     def mostrar(self):
         # =============== MOSTRANDO CAIXA DE TEXTO E BOTÃO ================
 
-        self.botao_mostrar.place(relx=0.55, rely=0.925, relwidth=0.05, relheight=0.03)
+        self.botao_mostrar.place(relx=0.59, rely=0.925, relwidth=0.05, relheight=0.03)
         self.botao_inicial.place(relx=0.35, rely=0.925, relwidth=0.05, relheight=0.03)
-        self.edit_inicial.place(x=40, y=70, width=400)
-        self.edit_idade.place(x=500, y=70, width=30)
-        self.edit_hipotese.place(x=180, y=145, width=930)
-        self.edit_primeiro.place(relx=0.015, rely=0.43, relwidth=0.05, relheight=0.03)
-        self.edit_outros.place(x=20, y=320, width=1280, height=100)
-        self.edit_data.place(x=933, y=70)
-        self.edit_telefone.place(x=717, y=70)
+        self.edit_inicial.place(relx=0.03, rely=0.18, relwidth=0.3)
+        self.edit_idade.place(relx=0.375, rely=0.18, relwidth=0.1)
+        self.edit_hipotese.place(relx=0.15, rely=0.3, relwidth=0.70)
+        self.edit_primeiro.place(relx=0.015, rely=0.42, relwidth=0.97, relheight=0.22)
+        self.edit_outros.place(relx=0.015, rely=0.70, relwidth=0.97, relheight=0.22)
+        self.edit_data.place(relx=0.74, rely=0.18, relwidth=0.1)
+        self.edit_telefone.place(relx=0.54, rely=0.18, relwidth=0.1)
 
         # ============================================== MOSTRANDO LABEL =====================================================
-        self.lcadastro.place(x=550, y=20)
-        self.label_inicial.place(x=19, y=45)
-        self.lidade.place(x=530, y=45)
-        self.ldata_inicio.place(x=930, y=45)
-        self.ltelefone.place(x=710, y=45)
-        self.lhipotese.place(x=550, y=120)
+        self.lcadastro.place(relx=0.39, rely=0.025)
+        self.label_inicial.place(relx=0.03, rely=0.12)
+        self.lidade.place(relx=0.375, rely=0.12)
+        self.ldata_inicio.place(relx=0.74, rely=0.12)
+        self.ltelefone.place(relx=0.54, rely=0.12)
+        self.lhipotese.place(relx=0.44, rely=0.25)
         self.lprimeiro.place(x=19, y=165)
         self.loutros.place(x=19, y=295)
 
+
+    def lista_frame(self):
+        self.lista = ttk.Treeview(self.frame_dados, height = 3, column=('col1','col2','col3', 'col4'))    
+        self.lista.heading('#0', text='')
+        self.lista.heading('#1', text='NOME')
+        self.lista.heading('#2', text='IDADE')
+        self.lista.heading('#3', text='TELEFONE')
+        self.lista.heading('#4', text='DATA DE INÍCIO')
+
+
+        self.lista.column('#0', width =1)
+        self.lista.column('#1', width =70)
+        self.lista.column('#2', width =4)
+        self.lista.column('#3', width =13)
+        self.lista.column('#4', width =9)
+
+        self.lista.place(relx=0.02, rely=0.1, relwidth=0.97, relheight=0.7)
+        self.barra_rolagem = Scrollbar(self.frame_dados, orient='vertical')
+        self.lista.configure(yscroll=self.barra_rolagem.set)
+        self.barra_rolagem.place(relx=0.98, rely=0.1, relwidth=0.01, relheight=0.7)
 
 
 Janelas()
