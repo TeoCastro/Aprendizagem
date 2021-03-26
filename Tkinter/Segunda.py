@@ -6,6 +6,19 @@ import sqlite3
 janela = Tk()
 
 
+class Funçoes():
+    def conecta_banco(self):
+        self.banco = sqlite3.connect('Banco_Clientes.db')
+        self.cursor = banco.cursor()
+        self.cursor.execute("CREATE TABLE IF NOT EXISTS clientes (NOME text, IDADE integer, DATA date, TELEFONE text, HIPOTESE text, PRIMEIRO text, OUTROS text)")
+
+
+    def desconecta_banco(self):
+        self.banco.close()
+        
+
+
+
 class Janelas():
     def __init__(self):
         self.janela = janela
