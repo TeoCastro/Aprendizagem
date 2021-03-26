@@ -9,17 +9,44 @@ janela = Tk()
 class Funçoes():
     def conecta_banco(self):
         self.banco = sqlite3.connect('Banco_Clientes.db')
-        self.cursor = banco.cursor()
-        self.cursor.execute("CREATE TABLE IF NOT EXISTS clientes (NOME text, IDADE integer, DATA date, TELEFONE text, HIPOTESE text, PRIMEIRO text, OUTROS text)")
+        self.cursor = self.banco.cursor()
+        self.cursor.execute("CREATE TABLE IF NOT EXISTS clientes (NOME text CHAR(50) NOT NULL, IDADE integer, DATA date, TELEFONE text, HIPOTESE text, PRIMEIRO text, OUTROS text)")
+
+        self.banco.commit()
 
 
     def desconecta_banco(self):
         self.banco.close()
+
+
+    def inser(self):
+        self.inicial1 = self.edit_inicial.get()
+        
+        self.primeiro1 = self.edit_primeiro.get("1.0", 'end')
+        self.idade1 = self.edit_idade.get()
+        self.dataInicio = self.edit_data.get()
+        self.telefone1 = self.edit_telefone.get()
+        self.hipotese1 = self.edit_hipotese.get()
+        self.outros1 = self.edit_outros.get("1.0", 'end')
+
+        cursor.execute('INSERT INTO clientes(NOME,IDADE,DATA,TELEFONE, HIPOTESE,PRIMEIRO,OUTROS)VALUES(?,?,?,?,?,?,?)',
+        (self.inicial1,self.idade1,self.dataInicio,self.telefone1,self.hipotese1,self.primeiro1,self.outros1))
+
+        self.banco.commit()
+        self.select_lista()
+
+    def select_lista(self):
+        self.lista.delete(*self.lista.get_children())
+        lista1 = self.cursor.execute('''SELECT NOME, IDADE, DATA, TELEFONE FROM clientes''')
+
+        for i in lista1:
+            self.lista.insert('',END,values=1)
         
 
 
 
-class Janelas():
+
+class Janelas(Funçoes):
     def __init__(self):
         self.janela = janela
         self.tela()
@@ -28,6 +55,8 @@ class Janelas():
         self.preencher()
         self.mostrar()
         self.lista_frame()
+        self.conecta_banco()
+        self.select_lista()
         janela.mainloop()
 
 
@@ -87,7 +116,7 @@ class Janelas():
 
         # ======================= CRIANDO BOTÃO ===========================
 
-        self.botao_inicial = Button(self.janela, text='Salvar',bd=4, command=self.semComando)
+        self.botao_inicial = Button(self.janela, text='Salvar',bd=4, command=self.inser)
         self.botao_mostrar = Button(self.janela, text='Mostrar',bd=4, command=self.semComando)
 
         
