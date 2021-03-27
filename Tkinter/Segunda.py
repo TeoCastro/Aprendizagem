@@ -6,47 +6,13 @@ import sqlite3
 janela = Tk()
 
 
-class Funçoes():
-    def conecta_banco(self):
-        self.banco = sqlite3.connect('Banco_Clientes.db')
-        self.cursor = self.banco.cursor()
-        self.cursor.execute("CREATE TABLE IF NOT EXISTS clientes (NOME text CHAR(50) NOT NULL, IDADE integer, DATA date, TELEFONE text, HIPOTESE text, PRIMEIRO text, OUTROS text)")
 
-        self.banco.commit()
-
-
-    def desconecta_banco(self):
-        self.banco.close()
-
-
-    def inser(self):
-        self.inicial1 = self.edit_inicial.get()
-        
-        self.primeiro1 = self.edit_primeiro.get("1.0", 'end')
-        self.idade1 = self.edit_idade.get()
-        self.dataInicio = self.edit_data.get()
-        self.telefone1 = self.edit_telefone.get()
-        self.hipotese1 = self.edit_hipotese.get()
-        self.outros1 = self.edit_outros.get("1.0", 'end')
-
-        cursor.execute('INSERT INTO clientes(NOME,IDADE,DATA,TELEFONE, HIPOTESE,PRIMEIRO,OUTROS)VALUES(?,?,?,?,?,?,?)',
-        (self.inicial1,self.idade1,self.dataInicio,self.telefone1,self.hipotese1,self.primeiro1,self.outros1))
-
-        self.banco.commit()
-        self.select_lista()
-
-    def select_lista(self):
-        self.lista.delete(*self.lista.get_children())
-        lista1 = self.cursor.execute('''SELECT NOME, IDADE, DATA, TELEFONE FROM clientes''')
-
-        for i in lista1:
-            self.lista.insert('',END,values=1)
         
 
 
 
 
-class Janelas(Funçoes):
+class Janelas():
     def __init__(self):
         self.janela = janela
         self.tela()
@@ -66,6 +32,7 @@ class Janelas(Funçoes):
         
         self.janela.configure(background='black')
 
+
     def frame_tela(self):
         self.frame_dados = Frame(self.janela)
         self.frame_dados.place(relx=0.009, rely=0.01, relwidth=0.985, relheight=0.3)
@@ -75,10 +42,10 @@ class Janelas(Funçoes):
         self.frame_dados2.configure(background='brown')
 
     
-    def semComando():
+    def semComando(self):
+        # fjelkje
         print('')
-    
-    
+      
     
     def menus(self):
         self.barraDeMenus = Menu(self.janela )
@@ -115,7 +82,7 @@ class Janelas(Funçoes):
         self.loutros = Label(self.frame_dados2,font=('blak',11,'bold'),bg='brown', text='OUTROS ATENDIMENTOS')
 
         # ======================= CRIANDO BOTÃO ===========================
-
+    
         self.botao_inicial = Button(self.janela, text='Salvar',bd=4, command=self.inser)
         self.botao_mostrar = Button(self.janela, text='Mostrar',bd=4, command=self.semComando)
 
@@ -134,7 +101,7 @@ class Janelas(Funçoes):
         self.edit_data.place(relx=0.74, rely=0.18, relwidth=0.1)
         self.edit_telefone.place(relx=0.54, rely=0.18, relwidth=0.1)
 
-        # ============================================== MOSTRANDO LABEL =====================================================
+        # ====================== MOSTRANDO LABEL =====================================================
         self.lcadastro.place(relx=0.39, rely=0.025)
         self.label_inicial.place(relx=0.03, rely=0.12)
         self.lidade.place(relx=0.375, rely=0.12)
@@ -159,11 +126,52 @@ class Janelas(Funçoes):
         self.lista.column('#2', width =4)
         self.lista.column('#3', width =13)
         self.lista.column('#4', width =9)
+    
 
         self.lista.place(relx=0.02, rely=0.1, relwidth=0.97, relheight=0.7)
-        self.barra_rolagem = Scrollbar(self.frame_dados, orient='vertical')
+        self.barra_rolagem = Scrollbar(self.lista, orient='vertical')
         self.lista.configure(yscroll=self.barra_rolagem.set)
         self.barra_rolagem.place(relx=0.98, rely=0.1, relwidth=0.01, relheight=0.7)
+
+
+# ==========================
+
+    def conecta_banco(self):
+        self.banco = sqlite3.connect('Banco_Clientes.db')
+        self.cursor = self.banco.cursor()
+        self.cursor.execute("CREATE TABLE IF NOT EXISTS clientes (NOME text CHAR(50) NOT NULL, IDADE integer, DATA date, TELEFONE text, HIPOTESE text, PRIMEIRO text, OUTROS text)")
+        
+        self.banco.commit()
+
+
+    def desconecta_banco(self):
+        self.banco.close()
+
+
+    def inser(self):
+        self.inicial1 = self.edit_inicial.get()
+        self.primeiro1 = self.edit_primeiro.get("1.0", 'end')
+        self.idade1 = self.edit_idade.get()
+        self.dataInicio = self.edit_data.get()
+        self.telefone1 = self.edit_telefone.get()
+        self.hipotese1 = self.edit_hipotese.get()
+        self.outros1 = self.edit_outros.get("1.0", 'end')
+
+        self.cursor.execute('INSERT INTO clientes(NOME,IDADE,DATA,TELEFONE, HIPOTESE,PRIMEIRO,OUTROS)VALUES(?,?,?,?,?,?,?)',
+        (self.inicial1, self.idade1, self.dataInicio, self.telefone1, self.hipotese1, self.primeiro1, self.outros1))
+
+        self.banco.commit()
+        self.select_lista()
+
+    def select_lista(self):
+        
+        self.lista.delete(*self.lista.get_children())
+        lista1 = self.cursor.execute("""SELECT NOME, IDADE, DATA, TELEFONE FROM clientes ORDER BY NOME ASC""")
+
+        for i in lista1:
+            self.lista.insert('',END, values=i)
+            
+
 
 
 Janelas()
