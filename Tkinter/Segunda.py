@@ -1,6 +1,6 @@
 from tkinter import *
 from tkinter import ttk
-import pandas as pd
+#import pandas as pd
 import sqlite3
 
 janela = Tk()
@@ -16,13 +16,27 @@ class Janelas():
     def __init__(self):
         self.janela = janela
         self.tela()
+        
         self.frame_tela()
+        self.limpar()
         self.menus()
+        
         self.preencher()
+        
         self.mostrar()
+        
         self.lista_frame()
+        
         self.conecta_banco()
+        
         self.select_lista()
+        
+        self.variavel_test()
+        
+        self.dois_clicks()
+        
+        self.del_cliente()
+        
         janela.mainloop()
 
 
@@ -43,7 +57,6 @@ class Janelas():
 
     
     def semComando(self):
-        # fjelkje
         print('')
       
     
@@ -84,7 +97,7 @@ class Janelas():
         # ======================= CRIANDO BOTÃO ===========================
     
         self.botao_inicial = Button(self.janela, text='Salvar',bd=4, command=self.inser)
-        self.botao_mostrar = Button(self.janela, text='Mostrar',bd=4, command=self.semComando)
+        self.botao_mostrar = Button(self.janela, text='Mostrar',bd=4, command=self.dois_clicks)
 
         
 
@@ -121,7 +134,7 @@ class Janelas():
         self.lista.heading('#4', text='DATA DE INÍCIO')
 
 
-        self.lista.column('#0', width =1)
+        self.lista.column('#0', width =2)
         self.lista.column('#1', width =70)
         self.lista.column('#2', width =4)
         self.lista.column('#3', width =13)
@@ -132,6 +145,7 @@ class Janelas():
         self.barra_rolagem = Scrollbar(self.lista, orient='vertical')
         self.lista.configure(yscroll=self.barra_rolagem.set)
         self.barra_rolagem.place(relx=0.98, rely=0.1, relwidth=0.01, relheight=0.7)
+        self.lista.bind('<Double-1>', self.dois_clicks)
 
 
 # ==========================
@@ -170,8 +184,64 @@ class Janelas():
 
         for i in lista1:
             self.lista.insert('',END, values=i)
-            
+        
+        
 
 
+#=================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+
+
+    def dois_clicks(self,event):
+        self.limpar()
+        self.lista.selection()
+        for n in self.lista.selection():
+            col1, col2, col3, col4 = self.lista.item(n, 'values')
+            self.edit_inicial.insert(END, col1)
+            self.edit_idade.insert(END, col2)
+            self.edit_telefone.insert(END, col3)
+            self.edit_data.insert(END, col4)
+
+
+    def del_cliente(self):
+
+        self.variavel_test()
+        self.cursor.execute("""DELETE FROM clientes WHERE NOME=?""", (self.primeiro1))
+        
+        self.banco.commit()
+        self.select_lista()
+        self.inicial1 = self.edit_inicial.get()
+        self.primeiro1 = self.edit_primeiro.get("1.0", 'end')
+        self.idade1 = self.edit_idade.get()
+        self.dataInicio = self.edit_data.get()
+        self.telefone1 = self.edit_telefone.get()
+        self.hipotese1 = self.edit_hipotese.get()
+        self.outros1 = self.edit_outros.get("1.0", 'end')
+
+
+
+    def variavel_test(self):
+        self.inicial1 = self.edit_inicial.get()
+        self.primeiro1 = self.edit_primeiro.get("1.0", 'end')
+        self.idade1 = self.edit_idade.get()
+        self.dataInicio = self.edit_data.get()
+        self.telefone1 = self.edit_telefone.get()
+        self.hipotese1 = self.edit_hipotese.get()
+        self.outros1 = self.edit_outros.get("1.0", 'end')
+
+    def ler_dados(self, vlrbusca):
+        self.limpar
+        sqlr = 'SELECT * FROM clientes WHERE Nome=?'
+        for row in self.cursor.execute(sqlr, (vlrbusca,)):
+            print(row)
+
+
+    def limpar(self):
+        self.edit_inicial = ''
+        self.edit_idade = ''
+        self.edit_telefone = ''
+        self.edit_data = ''
+        self.edit_hipotese = ''
+        self.edit_outros = ''
+        self.edit_primeiro = ''
 
 Janelas()
