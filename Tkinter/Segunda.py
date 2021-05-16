@@ -33,7 +33,7 @@ class Janelas():
         
         self.variavel_test()
         
-        self.dois_clicks()
+        #self.dois_clicks()
         
         self.del_cliente()
         
@@ -97,7 +97,7 @@ class Janelas():
         # ======================= CRIANDO BOTÃO ===========================
     
         self.botao_inicial = Button(self.janela, text='Salvar',bd=4, command=self.inser)
-        self.botao_mostrar = Button(self.janela, text='Mostrar',bd=4, command=self.dois_clicks)
+        self.botao_mostrar = Button(self.janela, text='Mostrar',bd=4, command=self.semComando())
 
         
 
@@ -145,7 +145,7 @@ class Janelas():
         self.barra_rolagem = Scrollbar(self.lista, orient='vertical')
         self.lista.configure(yscroll=self.barra_rolagem.set)
         self.barra_rolagem.place(relx=0.98, rely=0.1, relwidth=0.01, relheight=0.7)
-        self.lista.bind('<Double-1>', self.dois_clicks)
+        #self.lista.bind('<Double-1>', self.dois_clicks)
 
 
 # ==========================
@@ -191,7 +191,7 @@ class Janelas():
 #=================================================================================================================================================================================================================================================================================================================================================================================================================================================================
 
 
-    def dois_clicks(self,event):
+    '''def dois_clicks(self,event):
         self.limpar()
         self.lista.selection()
         for n in self.lista.selection():
@@ -199,7 +199,7 @@ class Janelas():
             self.edit_inicial.insert(END, col1)
             self.edit_idade.insert(END, col2)
             self.edit_telefone.insert(END, col3)
-            self.edit_data.insert(END, col4)
+            self.edit_data.insert(END, col4)'''
 
 
     def del_cliente(self):

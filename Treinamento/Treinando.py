@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import ttk
+import sqlite3
 
 root = Tk()
 #root.title = ('Tela Inicial')
@@ -12,9 +13,9 @@ class compon_consul(): ############# Botão  Novo ##################
         self.bbotao = Button(tip, text = 'DELETAR', command= self.nova_janela)
         self.bbotao2 = Button(tip, text = 'VISUALIZAR', command= self.janela_visualizar)
         self.bbotao3 = Button(tip, text = 'VOLTAR', command= self.tope1.destroy)
-        self.bbotao2.place(x=500 , y=650)
-        self.bbotao3.place(x=600 , y=650)
-        self.bbotao.place(x=700 , y=650)
+        self.bbotao2.place(relx=0.50, rely=0.850)
+        self.bbotao3.place(relx=0.60, rely=0.850)
+        self.bbotao.place(relx=0.40, rely=0.850)
         
         #self.bbotao.place(x=350 , y=650)
 
@@ -26,10 +27,10 @@ class compon_consul(): ############# Botão  Novo ##################
         self.menuContatos.add_command(label='PESQUISAR', command=self.janela_consultar)
         self.menuContatos.add_command(label='DELETAR', command=self.semComando)
         self.menuContatos.add_separator()
-        self.menuContatos.add_command(label='FECHAR', command=self.semComando)
+        self.menuContatos.add_command(label='FECHAR', command=self.root.destroy)
         self.barraDeMenus.add_cascade(label='Contatos', menu=self.menuContatos)
         self.root.config(menu=self.barraDeMenus)
-
+        
 
     def divisao_tela_co(self, tip1):
         print(tip1)
@@ -63,7 +64,25 @@ class compon_consul(): ############# Botão  Novo ##################
         self.barra_rolagem = Scrollbar(self.lista, orient='vertical')
         self.lista.configure(yscroll=self.barra_rolagem.set)
         self.barra_rolagem.place(relx=0.98, rely=0.1, relwidth=0.01, relheight=0.7)
-        #self.lista.bind('<Double-1>', self.dois_clicks)
+        self.lista.bind('<Double-1>', self.dois_clicks)
+
+
+    def conecta_banco(self):
+        self.banco = sqlite3.connect('Banco_Clientes.db')
+        self.cursor = self.banco.cursor()
+        self.cursor.execute("CREATE TABLE IF NOT EXISTS clientes (NOME text CHAR(50) NOT NULL, IDADE integer, DATA date, TELEFONE text, HIPOTESE text, PRIMEIRO text, OUTROS text)")
+        
+        self.banco.commit()
+
+
+    def select_lista(self):
+        
+        self.lista.delete(*self.lista.get_children())
+        lista1 = self.cursor.execute("""SELECT NOME, IDADE, DATA, TELEFONE FROM clientes ORDER BY NOME ASC""")
+
+        for i in lista1:
+            self.lista.insert('',END, values=i)
+            
 
 
     def preencher_co(self, trip):
@@ -88,13 +107,30 @@ class compon_consul(): ############# Botão  Novo ##################
         self.loutros = Label(trip,font=('blak',11,'bold'),bg='brown', text='OUTROS ATENDIMENTOS')
 
 
+    def inser(self):
+        self.edit_inicial = self.edit_inicial.get()
+        self.edit_primeiro = self.edit_primeiro.get("1.0", 'end')
+        self.edit_idade = self.edit_idade.get()
+        self.edit_data = self.edit_data.get()
+        self.edit_telefone = self.edit_telefone.get()
+        self.edit_hipotese = self.edit_hipotese.get()
+        self.edit_outros = self.edit_outros.get("1.0", 'end')
+
+        self.cursor.execute('INSERT INTO clientes(NOME,IDADE,DATA,TELEFONE, HIPOTESE,PRIMEIRO,OUTROS)VALUES(?,?,?,?,?,?,?)',
+        (self.edit_inicial, self.edit_idade, self.edit_data, self.edit_telefone, self.edit_hipotese, self.edit_primeiro, self.edit_outros))
+
+        self.banco.commit()
+        self.select_lista()
+        
+
+
     def mostrar_co(self):
         # =============== MOSTRANDO CAIXA DE TEXTO E BOTÃO ================
 
         self.edit_inicial.place(relx=0.03, rely=0.18, relwidth=0.3)
         self.edit_idade.place(relx=0.375, rely=0.18, relwidth=0.1)
         self.edit_hipotese.place(relx=0.15, rely=0.3, relwidth=0.70)
-        self.edit_primeiro.place(relx=0.015, rely=0.42, relwidth=0.97, relheight=0.52)
+        self.edit_primeiro.place(relx=0.015, rely=0.42, relwidth=0.97, relheight=0.45)
         #self.edit_outros.place(relx=0.015, rely=0.70, relwidth=0.97, relheight=0.22)
         self.edit_telefone.place(relx=0.675, rely=0.18, relwidth=0.1)
         self.edit_data.place(relx=0.875, rely=0.18, relwidth=0.1)
@@ -109,6 +145,27 @@ class compon_consul(): ############# Botão  Novo ##################
         self.ltelefone.place(relx=0.675, rely=0.13)
         self.lprimeiro.place(relx=0.03, rely=0.38)
         #self.loutros.place(x=19, y=295)
+      
+
+    def limpar(self):
+        self.edit_inicial.delete(0, END)
+        self.edit_idade.delete(0, END)
+        self.edit_telefone.delete(0, END)
+        self.edit_data.delete(0, END)
+        self.edit_hipotese.delete(0, END)
+        self.edit_outros.delete(1.0, END)
+        self.edit_primeiro.delete(1.0, END)
+
+
+    def dois_clicks(self,event):
+        self.limpar()
+        self.lista.selection()
+        for n in self.lista.selection():
+            col1, col2, col3, col4 = self.lista.item(n, 'values')
+            self.edit_inicial.insert(END, col1)
+            self.edit_idade.insert(END, col2)
+            self.edit_telefone.insert(END, col3)
+            self.edit_data.insert(END, col4)
 
 
 '''class compon(): #################### Botão Pesquizar ###############
@@ -216,8 +273,10 @@ class compon_consul(): ############# Botão  Novo ##################
 class compon_editar(): ############# Botão  Visualizar ##################
     def widget_ed(self , tip):
         self.bbotao = Button(tip, text = 'VOLTAR', command= self.tope1.destroy)
+        self.bbotao2 = Button(tip, text = 'SALVAR', command= self.tope1.destroy)
 
-        self.bbotao.place(x=650 , y=650)
+        self.bbotao.place(relx=0.50, rely=0.850)
+        self.bbotao.place(relx=0.60, rely=0.850)
         #self.bbotao.place_forget()
 
 
@@ -277,7 +336,10 @@ class constr(compon_consul, compon_editar):
     def __init__(self):
        
         self.root=root
+        self.w, self.h = root.winfo_screenwidth(), root.winfo_screenheight()
+        root.geometry("%dx%d+0+0" % (self.w, self.h))
         self.menus()
+        self.conecta_banco()
 
         
 
@@ -289,7 +351,7 @@ class constr(compon_consul, compon_editar):
 
     def nova_janela(self):
         self.tope = Toplevel()
-        self.tope.geometry("1350x700+5+5")
+        self.tope.geometry("%dx%d+0+0" % (self.w, self.h))
         self.divisao_tela(self.tope)
         print(self.tope)
         self.widget(self.tope)
@@ -304,20 +366,21 @@ class constr(compon_consul, compon_editar):
     
     def janela_consultar(self): 
         self.tope1 = Toplevel()
-        self.tope1.geometry("1350x700+5+5")
+        self.tope1.geometry("%dx%d+0+0" % (self.w, self.h))
         self.divisao_tela_co(self.tope1)
         self.widget_co(self.tope1)
         
         self.preencher_co(self.frame_dois)
         self.mostrar_co()
         self.lista_box_co()
+        self.select_lista()
     
 
     def janela_inserir(self):
         self.tope1 = Toplevel()
-        self.tope1.geometry("1350x700+5+5")
-        self.divisao_tela_ed(tope1)
-        self.widget_co(tope1)
+        self.tope1.geometry("%dx%d+0+0" % (self.w, self.h))
+        self.divisao_tela_ed(self.tope1)
+        self.widget_ed(self.tope1)
         
         self.preencher_co(self.frame_dois)
         self.mostrar_co()
@@ -325,17 +388,13 @@ class constr(compon_consul, compon_editar):
 
     def janela_visualizar(self):
         self.tope1 = Toplevel()
-        self.tope1.geometry("1350x700+5+5")
+        self.tope1.geometry("%dx%d+0+0" % (self.w, self.h))
         self.divisao_tela_ed(self.tope1)
         self.widget_ed(self.tope1)
         
         self.preencher_ed(self.frame_dois)
         self.mostrar_ed()
 
-
-    def fechar(self):
-        Toplevel.destroy()
-        
 
 
 
