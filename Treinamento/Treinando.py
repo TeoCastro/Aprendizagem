@@ -45,20 +45,22 @@ class compon_consul(): ############# Botão  Novo ##################
 
 
     def lista_box_co(self):
-        self.lista = ttk.Treeview(self.frame_um, height = 0, column=('col1','col2','col3', 'col4', 'col5'))    
+        self.lista = ttk.Treeview(self.frame_um, height = 0, column=('col1','col2','col3', 'col4', 'col5', 'col6'))    
         self.lista.heading('#0', text='')
         self.lista.heading('#1', text='NOME')
         self.lista.heading('#2', text='IDADE')
         self.lista.heading('#3', text='TELEFONE')
         self.lista.heading('#4', text='DATA DE INÍCIO')
         self.lista.heading('#5', text='HIPOTESE')
+        self.lista.heading('#6', text='PRIMEIRO ATENDIMENTO')
 
         self.lista.column('#0', width =2)
-        self.lista.column('#1', width =400)
+        self.lista.column('#1', width =100)
         self.lista.column('#2', width =4)
         self.lista.column('#3', width =13)
         self.lista.column('#4', width =9)
-        self.lista.column('#5', width =400)
+        self.lista.column('#5', width =100)
+        self.lista.column('#6', width =100)
 
         self.lista.place(relx=0.02, rely=0.1, relwidth=0.97, relheight=0.7)
         self.barra_rolagem = Scrollbar(self.lista, orient='vertical')
@@ -78,7 +80,7 @@ class compon_consul(): ############# Botão  Novo ##################
     def select_lista(self):
         
         self.lista.delete(*self.lista.get_children())
-        lista1 = self.cursor.execute("""SELECT NOME, IDADE, DATA, TELEFONE, HIPOTESE FROM clientes ORDER BY NOME ASC""")
+        lista1 = self.cursor.execute("""SELECT NOME, IDADE, DATA, TELEFONE, HIPOTESE, PRIMEIRO FROM clientes ORDER BY NOME ASC""")
 
         for i in lista1:
             self.lista.insert('',END, values=i)
@@ -161,12 +163,14 @@ class compon_consul(): ############# Botão  Novo ##################
         self.limpar()
         self.lista.selection()
         for n in self.lista.selection():
-            col1, col2, col3, col4, col5 = self.lista.item(n, 'values')
+            col1, col2, col3, col4, col5, col6 = self.lista.item(n, 'values')
             self.edit_inicial_co.insert(END, col1)
             self.edit_idade_co.insert(END, col2)
             self.edit_telefone_co.insert(END, col3)
             self.edit_data_co.insert(END, col4)               
             self.edit_hipotese_co.insert(END, col5)
+            self.edit_primeiro_co.insert(END, col6)
+
 
 '''class compon(): #################### Botão Pesquizar ###############
     def widget(self , tip):
