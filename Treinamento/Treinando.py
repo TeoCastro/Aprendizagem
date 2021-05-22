@@ -172,6 +172,11 @@ class compon_consul(): ############# Botão  Novo ##################
             self.edit_hipotese_co.insert(END, col5)
             self.edit_primeiro_co.insert(END, col6)
 
+        
+
+
+        
+
 
 '''class compon(): #################### Botão Pesquizar ###############
     def widget(self , tip):
@@ -316,7 +321,7 @@ class compon_editar(): ############# Botão  Visualizar ##################
 
     def mostrar_ed(self):
         # =============== MOSTRANDO CAIXA DE TEXTO E BOTÃO ================
-
+        
         self.edit_inicial.place(relx=0.03, rely=0.18, relwidth=0.3)
         #self.edit_idade.place(relx=0.375, rely=0.18, relwidth=0.1)
         #self.edit_hipotese.place(relx=0.15, rely=0.3, relwidth=0.70)
@@ -324,6 +329,7 @@ class compon_editar(): ############# Botão  Visualizar ##################
         self.edit_outros.place(relx=0.015, rely=0.30, relwidth=0.97, relheight=0.52)
         #self.edit_telefone.place(relx=0.675, rely=0.18, relwidth=0.1)
         #self.edit_data.place(relx=0.875, rely=0.18, relwidth=0.1)
+        
 
 
         # ====================== MOSTRANDO LABEL =====================================================
@@ -351,6 +357,10 @@ class compon_editar(): ############# Botão  Visualizar ##################
 
         self.banco.commit()
         self.select_lista()
+
+
+
+
 
 
 class constr(compon_consul, compon_editar):
@@ -415,6 +425,7 @@ class constr(compon_consul, compon_editar):
         
         self.preencher_ed(self.frame_dois)
         self.mostrar_ed()
+        
 
 
 
