@@ -122,6 +122,7 @@ class compon_consul(): ############# Botão  Novo ##################
         (self.inicial1, self.idade1, self.dataInicio, self.telefone1, self.hipotese1, self.primeiro1, self.outros1))
 
         self.banco.commit()
+        self.limpar_co()
         #self.select_lista()
         
 
@@ -149,7 +150,7 @@ class compon_consul(): ############# Botão  Novo ##################
         #self.loutros.place(x=19, y=295)
       
 
-    def limpar(self):
+    def limpar_co(self):
         self.edit_inicial_co.delete(0, END)
         self.edit_idade_co.delete(0, END)
         self.edit_telefone_co.delete(0, END)
@@ -160,7 +161,7 @@ class compon_consul(): ############# Botão  Novo ##################
 
 
     def dois_clicks(self,event):
-        self.limpar()
+        self.limpar_co()
         self.lista.selection()
         for n in self.lista.selection():
             col1, col2, col3, col4, col5, col6 = self.lista.item(n, 'values')
