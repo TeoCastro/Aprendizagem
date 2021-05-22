@@ -87,13 +87,13 @@ class compon_consul(): ############# Botão  Novo ##################
 
     def preencher_co(self, trip):
         #=============== CRIANDO ENTRY ====================================
-        self.edit_inicial = Entry(trip)
-        self.edit_idade = Entry(trip)
-        self.edit_hipotese = Entry(trip)
-        self.edit_outros = Text(trip)
-        self.edit_primeiro = Text(trip)
-        self.edit_telefone = Entry(trip)
-        self.edit_data = Entry(trip)
+        self.edit_inicial_co = Entry(trip)
+        self.edit_idade_co = Entry(trip)
+        self.edit_hipotese_co = Entry(trip)
+        self.edit_outros_co = Text(trip)
+        self.edit_primeiro_co = Text(trip)
+        self.edit_telefone_co = Entry(trip)
+        self.edit_data_co = Entry(trip)
 
        #=============== CRIANDO LABEL ====================================
 
@@ -107,33 +107,33 @@ class compon_consul(): ############# Botão  Novo ##################
         self.loutros = Label(trip,font=('blak',11,'bold'),bg='brown', text='OUTROS ATENDIMENTOS')
 
 
-    def inser(self):
-        self.edit_inicial = self.edit_inicial.get()
-        self.edit_primeiro = self.edit_primeiro.get("1.0", 'end')
-        self.edit_idade = self.edit_idade.get()
-        self.edit_data = self.edit_data.get()
-        self.edit_telefone = self.edit_telefone.get()
-        self.edit_hipotese = self.edit_hipotese.get()
-        self.edit_outros = self.edit_outros.get("1.0", 'end')
+    def inser_co(self):
+        self.inicial1 = self.edit_inicial_co.get()
+        self.primeiro1 = self.edit_primeiro_co.get("1.0", 'end')
+        self.idade1 = self.edit_idade_co.get()
+        self.dataInicio = self.edit_data_co.get()
+        self.telefone1 = self.edit_telefone_co.get()
+        self.hipotese1 = self.edit_hipotese_co.get()
+        self.outros1 = self.edit_outros_co.get("1.0", 'end')
 
         self.cursor.execute('INSERT INTO clientes(NOME,IDADE,DATA,TELEFONE, HIPOTESE,PRIMEIRO,OUTROS)VALUES(?,?,?,?,?,?,?)',
-        (self.edit_inicial, self.edit_idade, self.edit_data, self.edit_telefone, self.edit_hipotese, self.edit_primeiro, self.edit_outros))
+        (self.inicial1, self.idade1, self.dataInicio, self.telefone1, self.hipotese1, self.primeiro1, self.outros1))
 
         self.banco.commit()
-        self.select_lista()
+        #self.select_lista()
         
 
 
     def mostrar_co(self):
         # =============== MOSTRANDO CAIXA DE TEXTO E BOTÃO ================
 
-        self.edit_inicial.place(relx=0.03, rely=0.18, relwidth=0.3)
-        self.edit_idade.place(relx=0.375, rely=0.18, relwidth=0.1)
-        self.edit_hipotese.place(relx=0.15, rely=0.3, relwidth=0.70)
-        self.edit_primeiro.place(relx=0.015, rely=0.42, relwidth=0.97, relheight=0.45)
-        #self.edit_outros.place(relx=0.015, rely=0.70, relwidth=0.97, relheight=0.22)
-        self.edit_telefone.place(relx=0.675, rely=0.18, relwidth=0.1)
-        self.edit_data.place(relx=0.875, rely=0.18, relwidth=0.1)
+        self.edit_inicial_co.place(relx=0.03, rely=0.18, relwidth=0.3)
+        self.edit_idade_co.place(relx=0.375, rely=0.18, relwidth=0.1)
+        self.edit_hipotese_co.place(relx=0.15, rely=0.3, relwidth=0.70)
+        self.edit_primeiro_co.place(relx=0.015, rely=0.42, relwidth=0.97, relheight=0.45)
+        #self.edit_outros_co.place(relx=0.015, rely=0.70, relwidth=0.97, relheight=0.22)
+        self.edit_telefone_co.place(relx=0.675, rely=0.18, relwidth=0.1)
+        self.edit_data_co.place(relx=0.875, rely=0.18, relwidth=0.1)
 
 
         # ====================== MOSTRANDO LABEL =====================================================
@@ -148,13 +148,13 @@ class compon_consul(): ############# Botão  Novo ##################
       
 
     def limpar(self):
-        self.edit_inicial.delete(0, END)
-        self.edit_idade.delete(0, END)
-        self.edit_telefone.delete(0, END)
-        self.edit_data.delete(0, END)
-        self.edit_hipotese.delete(0, END)
-        self.edit_outros.delete(1.0, END)
-        self.edit_primeiro.delete(1.0, END)
+        self.edit_inicial_co.delete(0, END)
+        self.edit_idade_co.delete(0, END)
+        self.edit_telefone_co.delete(0, END)
+        self.edit_data_co.delete(0, END)
+        self.edit_hipotese_co.delete(0, END)
+        self.edit_outros_co.delete(1.0, END)
+        self.edit_primeiro_co.delete(1.0, END)
 
 
     def dois_clicks(self,event):
@@ -162,11 +162,11 @@ class compon_consul(): ############# Botão  Novo ##################
         self.lista.selection()
         for n in self.lista.selection():
             col1, col2, col3, col4 = self.lista.item(n, 'values')
-            self.edit_inicial.insert(END, col1)
-            self.edit_idade.insert(END, col2)
-            self.edit_telefone.insert(END, col3)
-            self.edit_data.insert(END, col4)
-
+            self.edit_inicial_co.insert(END, col1)
+            self.edit_idade_co.insert(END, col2)
+            self.edit_telefone_co.insert(END, col3)
+            self.edit_data_co.insert(END, col4)               
+            
 
 '''class compon(): #################### Botão Pesquizar ###############
     def widget(self , tip):
@@ -273,10 +273,10 @@ class compon_consul(): ############# Botão  Novo ##################
 class compon_editar(): ############# Botão  Visualizar ##################
     def widget_ed(self , tip):
         self.bbotao = Button(tip, text = 'VOLTAR', command= self.tope1.destroy)
-        self.bbotao2 = Button(tip, text = 'SALVAR', command= self.tope1.destroy)
+        self.bbotao2 = Button(tip, text = 'SALVAR', command= self.inser_co)
 
         self.bbotao.place(relx=0.50, rely=0.850)
-        self.bbotao.place(relx=0.60, rely=0.850)
+        self.bbotao2.place(relx=0.60, rely=0.850)
         #self.bbotao.place_forget()
 
 
@@ -330,6 +330,22 @@ class compon_editar(): ############# Botão  Visualizar ##################
         #self.ltelefone.place(relx=0.675, rely=0.13)
         #self.lprimeiro.place(relx=0.03, rely=0.38)
         self.loutros.place(relx=0.400, rely=0.25)
+
+
+    def inser_ed(self):
+        self.inicial1 = self.edit_inicial.get()
+        self.primeiro1 = self.edit_primeiro.get("1.0", 'end')
+        self.idade1 = self.edit_idade.get()
+        self.dataInicio = self.edit_data.get()
+        self.telefone1 = self.edit_telefone.get()
+        self.hipotese1 = self.edit_hipotese.get()
+        self.outros1 = self.edit_outros.get("1.0", 'end')
+
+        self.cursor.execute('INSERT INTO clientes(NOME,IDADE,DATA,TELEFONE, HIPOTESE,PRIMEIRO,OUTROS)VALUES(?,?,?,?,?,?,?)',
+        (self.inicial1, self.idade1, self.dataInicio, self.telefone1, self.hipotese1, self.primeiro1, self.outros1))
+
+        self.banco.commit()
+        self.select_lista()
 
 
 class constr(compon_consul, compon_editar):
