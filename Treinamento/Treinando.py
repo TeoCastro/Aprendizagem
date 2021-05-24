@@ -288,12 +288,10 @@ class compon_consul(): ############# Botão  Novo ##################
 class compon_editar(): ############# Botão  Visualizar ##################
     def widget_ed(self , tip):
         self.bbotao = Button(tip, text = 'VOLTAR', command= self.tope1.destroy)
-        self.bbotao2 = Button(tip, text = 'SALVAR', command= self.inser_co)
-
+        self.bbotao2 = Button(tip, text = 'SALVAR', command= self.salve_ed) 
         self.bbotao.place(relx=0.50, rely=0.850)
         self.bbotao2.place(relx=0.60, rely=0.850)
         #self.bbotao.place_forget()
-
 
 
     def divisao_tela_ed(self, tip1):
@@ -306,24 +304,29 @@ class compon_editar(): ############# Botão  Visualizar ##################
         #=============== CRIANDO ENTRY ====================================
         self.edit_inicial = Entry(trip)
         self.edit_inicial.insert(END,self.edit_inicial_co.get())
-        #self.edit_idade = Entry(trip)
-        #self.edit_hipotese = Entry(trip)
+        self.inicialED = self.edit_inicial.get()
+
         self.edit_outros = Text(trip)
         self.edit_outros.insert(END,self.edit_outros_co.get("1.0", 'end'))
-        #self.edit_primeiro = Text(trip)
-        #self.edit_telefone = Entry(trip)
-        #self.edit_data = Entry(trip)
+        self.outroED = self.edit_outros.get("1.0", 'end')
+
+        '''self.edit_primeiro = Text(trip)
+        self.edit_telefone = Entry(trip)
+        self.edit_data = Entry(trip)
+        self.edit_idade = Entry(trip)
+        self.edit_hipotese = Entry(trip)'''
+
 
        #=============== CRIANDO LABEL ====================================
 
         self.lcadastro = Label(trip,bg="#808000",font=('white',16,'bold'), text='CADASTRO DE CLIENTES')
         self.label_inicial = Label( trip,font=('blak',11,'bold'),bg='brown', text='NOME')
         self.lidade = Label(trip,font=('blak',11,'bold'),bg='brown', text='IDADE')
-        #self.ldata_inicio = Label(trip,font=('blak',11,'bold'),bg='brown', text='DATA DE INICIO' )
-        #self.ltelefone = Label(trip,font=('blak',11,'bold'),bg='brown', text='TELEFONE')
-        #self.lhipotese = Label(trip,font=('blak',11,'bold'),bg='brown', text='HIPÓTESE DIAGNÓSTICA')
         self.lprimeiro = Label(trip,font=('blak',11,'bold'),bg='brown', text='PRIMEIRO ATENDIMENTO')
         self.loutros = Label(trip,font=('blak',11,'bold'),bg='brown', text='OUTROS ATENDIMENTOS')
+        '''self.ldata_inicio = Label(trip,font=('blak',11,'bold'),bg='brown', text='DATA DE INICIO' )
+        self.ltelefone = Label(trip,font=('blak',11,'bold'),bg='brown', text='TELEFONE')
+        self.lhipotese = Label(trip,font=('blak',11,'bold'),bg='brown', text='HIPÓTESE DIAGNÓSTICA')'''
 
 
     def mostrar_ed(self):
@@ -366,6 +369,23 @@ class compon_editar(): ############# Botão  Visualizar ##################
         self.select_lista()
 
 
+    def salve_ed(self):
+
+        self.inicialED = self.edit_inicial.get()
+        self.outroED = self.edit_outros.get("1.0", 'end')
+
+        self.cursor.execute("UPDATE clientes SET OUTROS='{0}'WHERE NOME='{1}'".format(self.outroED, self.inicialED))
+        
+        
+        #self.cursor.execute('UPDATE clientes SET OUTROS=  {0} WHERE NOME= {1} VALUES(?,?)' .format(self.outroED, self.inicialED))
+        print(self.outroED)
+        self.banco.commit()
+
+             
+
+
+    '''(NOME,IDADE,DATA,TELEFONE, HIPOTESE,PRIMEIRO,OUTROS)VALUES(?,?,?,?,?,?,?)',
+    (self.inicial1, self.idade1, self.dataInicio, self.telefone1, self.hipotese1, self.primeiro1, self.outros1))'''
 
 
 
