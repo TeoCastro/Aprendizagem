@@ -160,6 +160,7 @@ class compon_consul(): ############# Botão  Novo ##################
         self.edit_hipotese_co.delete(0, END)
         self.edit_outros_co.delete(1.0, END)
         self.edit_primeiro_co.delete(1.0, END)
+        self.tope1.destroy
 
 
     def dois_clicks(self,event):
@@ -175,12 +176,6 @@ class compon_consul(): ############# Botão  Novo ##################
             self.edit_hipotese_co.insert(END, col5)
             self.edit_primeiro_co.insert(END, col6)
             self.edit_outros_co.insert(END, col7)
-
-
-        
-
-
-        
 
 
 '''class compon(): #################### Botão Pesquizar ###############
@@ -294,6 +289,18 @@ class compon_editar(): ############# Botão  Visualizar ##################
         #self.bbotao.place_forget()
 
 
+
+    def widget_novo(self , tip):
+        self.bbotao = Button(tip, text = 'VOLTAR', command= self.tope1.destroy)
+        self.bbotao2 = Button(tip, text = 'SALVAR', command= self.inser_co) 
+        self.bbotao.place(relx=0.50, rely=0.850)
+        self.bbotao2.place(relx=0.60, rely=0.850)
+        #self.bbotao.place_forget()
+
+
+
+
+
     def divisao_tela_ed(self, tip1):
         self.frame_dois = Frame(tip1)
         self.frame_dois.place(relx=0.009, rely=0.03, relwidth=0.985, relheight=0.95)
@@ -381,14 +388,12 @@ class compon_editar(): ############# Botão  Visualizar ##################
         print(self.outroED)
         self.banco.commit()
 
+
+
+
+
+
              
-
-
-    '''(NOME,IDADE,DATA,TELEFONE, HIPOTESE,PRIMEIRO,OUTROS)VALUES(?,?,?,?,?,?,?)',
-    (self.inicial1, self.idade1, self.dataInicio, self.telefone1, self.hipotese1, self.primeiro1, self.outros1))'''
-
-
-
 
 class constr(compon_consul, compon_editar):
     def __init__(self):
@@ -438,7 +443,7 @@ class constr(compon_consul, compon_editar):
         self.tope1 = Toplevel()
         self.tope1.geometry("%dx%d+0+0" % (self.w, self.h))
         self.divisao_tela_ed(self.tope1)
-        self.widget_ed(self.tope1)
+        self.widget_novo(self.tope1)
         
         self.preencher_co(self.frame_dois)
         self.mostrar_co()
