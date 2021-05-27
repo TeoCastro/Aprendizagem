@@ -377,7 +377,8 @@ class compon_editar(): ############# Botão  Visualizar ##################
 
 
     def salve_ed(self):
-
+        self.bbotao2.config(state= DISABLED)
+        
         self.inicialED = self.edit_inicial.get()
         self.outroED = self.edit_outros.get("1.0", 'end')
 
