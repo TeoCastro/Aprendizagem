@@ -7,8 +7,12 @@ root = Tk()
 root.geometry("1350x700+5+5") 
 
 
+
+
+
 class compon_consul(): ############# Botão  Novo ##################
     def widget_co(self , tip):
+        
         self.bbotao = Button(tip, text = 'ok', command= self.nova_janela)
         self.bbotao = Button(tip, text = 'DELETAR', command= self.nova_janela)
         self.bbotao2 = Button(tip, text = 'VISUALIZAR', command= self.janela_visualizar)
@@ -21,6 +25,7 @@ class compon_consul(): ############# Botão  Novo ##################
 
 
     def menus(self):
+        
         self.barraDeMenus = Menu(self.root )
         self.menuContatos = Menu(self.barraDeMenus, tearoff=0)
         self.menuContatos.add_command(label='NOVO', command=self.janela_inserir)
@@ -165,6 +170,7 @@ class compon_consul(): ############# Botão  Novo ##################
 
     def dois_clicks(self,event):
         self.limpar_co()
+        self.bbotao2.config(state=NORMAL)
         self.lista.selection()
         for n in self.lista.selection():
             col1, col2, col3, col4, col5, col6, col7 = self.lista.item(n, 'values')
@@ -282,7 +288,7 @@ class compon_consul(): ############# Botão  Novo ##################
 
 class compon_editar(): ############# Botão  Visualizar ##################
     def widget_ed(self , tip):
-        self.bbotao = Button(tip, text = 'VOLTAR', command= self.tope1.destroy)
+        self.bbotao = Button(tip, text = 'VOLTAR', command= self.voltar_pri)
         self.bbotao2 = Button(tip, text = 'SALVAR', command= self.salve_ed) 
         self.bbotao.place(relx=0.50, rely=0.850)
         self.bbotao2.place(relx=0.60, rely=0.850)
@@ -302,18 +308,19 @@ class compon_editar(): ############# Botão  Visualizar ##################
 
 
     def divisao_tela_ed(self, tip1):
-        self.frame_dois = Frame(tip1)
-        self.frame_dois.place(relx=0.009, rely=0.03, relwidth=0.985, relheight=0.95)
-        self.frame_dois.configure(background='brown')
+        self.frame_dois1 = Frame(tip1)
+        self.frame_dois1.place(relx=0.009, rely=0.03, relwidth=0.985, relheight=0.95)
+        self.frame_dois1.configure(background='brown')
 
 
-    def preencher_ed(self, trip):
+    def preencher_ed(self, trips):
+        print(trips)
         #=============== CRIANDO ENTRY ====================================
-        self.edit_inicial = Entry(trip)
+        self.edit_inicial = Entry(self.frame_dois1)
         self.edit_inicial.insert(END,self.edit_inicial_co.get())
         self.inicialED = self.edit_inicial.get()
 
-        self.edit_outros = Text(trip)
+        self.edit_outros = Text(self.frame_dois1)
         self.edit_outros.insert(END,self.edit_outros_co.get("1.0", 'end'))
         self.outroED = self.edit_outros.get("1.0", 'end')
 
@@ -326,11 +333,11 @@ class compon_editar(): ############# Botão  Visualizar ##################
 
        #=============== CRIANDO LABEL ====================================
 
-        self.lcadastro = Label(trip,bg="#808000",font=('white',16,'bold'), text='CADASTRO DE CLIENTES')
-        self.label_inicial = Label( trip,font=('blak',11,'bold'),bg='brown', text='NOME')
-        self.lidade = Label(trip,font=('blak',11,'bold'),bg='brown', text='IDADE')
-        self.lprimeiro = Label(trip,font=('blak',11,'bold'),bg='brown', text='PRIMEIRO ATENDIMENTO')
-        self.loutros = Label(trip,font=('blak',11,'bold'),bg='brown', text='OUTROS ATENDIMENTOS')
+        self.lcadastro = Label(trips,bg="#808000",font=('white',16,'bold'), text='CADASTRO DE CLIENTES')
+        self.label_inicial = Label( trips,font=('blak',11,'bold'),bg='brown', text='NOME')
+        self.lidade = Label(trips,font=('blak',11,'bold'),bg='brown', text='IDADE')
+        self.lprimeiro = Label(trips,font=('blak',11,'bold'),bg='brown', text='PRIMEIRO ATENDIMENTO')
+        self.loutros = Label(trips,font=('blak',11,'bold'),bg='brown', text='OUTROS ATENDIMENTOS')
         '''self.ldata_inicio = Label(trip,font=('blak',11,'bold'),bg='brown', text='DATA DE INICIO' )
         self.ltelefone = Label(trip,font=('blak',11,'bold'),bg='brown', text='TELEFONE')
         self.lhipotese = Label(trip,font=('blak',11,'bold'),bg='brown', text='HIPÓTESE DIAGNÓSTICA')'''
@@ -388,6 +395,20 @@ class compon_editar(): ############# Botão  Visualizar ##################
         #self.cursor.execute('UPDATE clientes SET OUTROS=  {0} WHERE NOME= {1} VALUES(?,?)' .format(self.outroED, self.inicialED))
         print(self.outroED)
         self.banco.commit()
+        self.edit_inicial.delete(0, END) 
+        self.edit_inicial.config(state=DISABLED)
+        
+        self.edit_outros.delete(1.0, END)
+        self.edit_outros.config(state=DISABLED)
+        
+
+    def voltar_pri(self):
+
+        #self.tope1.destroy
+        self.tope2.destroy()
+        print('OI')
+        
+        self.janela_consultar()
 
 
 
@@ -400,8 +421,10 @@ class constr(compon_consul, compon_editar):
     def __init__(self):
        
         self.root=root
+        
         self.w, self.h = root.winfo_screenwidth(), root.winfo_screenheight()
         root.geometry("%dx%d+0+0" % (self.w, self.h))
+        
         self.menus()
         self.conecta_banco()
 
@@ -414,7 +437,7 @@ class constr(compon_consul, compon_editar):
 
 
     def nova_janela(self):
-        self.tope = Toplevel()
+        self.tope = Toplevel(root)
         self.tope.geometry("%dx%d+0+0" % (self.w, self.h))
         self.divisao_tela(self.tope)
         print(self.tope)
@@ -429,7 +452,7 @@ class constr(compon_consul, compon_editar):
 
     
     def janela_consultar(self): 
-        self.tope1 = Toplevel()
+        self.tope1 = Toplevel(root)
         self.tope1.geometry("%dx%d+0+0" % (self.w, self.h))
         self.divisao_tela_co(self.tope1)
         self.widget_co(self.tope1)
@@ -438,10 +461,11 @@ class constr(compon_consul, compon_editar):
         self.mostrar_co()
         self.lista_box_co()
         self.select_lista()
+        self.bbotao2.config(state= DISABLED)
     
 
     def janela_inserir(self):
-        self.tope1 = Toplevel()
+        self.tope1 = Toplevel(root)
         self.tope1.geometry("%dx%d+0+0" % (self.w, self.h))
         self.divisao_tela_ed(self.tope1)
         self.widget_novo(self.tope1)
@@ -450,15 +474,18 @@ class constr(compon_consul, compon_editar):
         self.mostrar_co()
         
 
+
+
+
     def janela_visualizar(self):
-        self.tope1 = Toplevel()
-        self.tope1.geometry("%dx%d+0+0" % (self.w, self.h))
-        self.divisao_tela_ed(self.tope1)
-        self.widget_ed(self.tope1)
         
-        self.preencher_ed(self.frame_dois)
+        self.tope2 = Toplevel(root)
+        self.tope2.geometry("%dx%d+0+0" % (self.w, self.h))
+        self.divisao_tela_ed(self.tope2)
+        self.widget_ed(self.tope2)
+        self.preencher_ed(self.frame_dois1)
         self.mostrar_ed()
-        
+        self.tope1.destroy()
 
 
 
