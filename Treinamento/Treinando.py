@@ -94,26 +94,27 @@ class compon_consul(): ############# Botão  Novo ##################
             
 
 
-    def preencher_co(self, trip):
+    def preencher_co(self, tripo):
+        print(tripo)
         #=============== CRIANDO ENTRY ====================================
-        self.edit_inicial_co = Entry(trip)
-        self.edit_idade_co = Entry(trip)
-        self.edit_hipotese_co = Entry(trip)
-        self.edit_outros_co = Text(trip)
-        self.edit_primeiro_co = Text(trip)
-        self.edit_telefone_co = Entry(trip)
-        self.edit_data_co = Entry(trip)
+        self.edit_inicial_co = Entry(tripo)
+        self.edit_idade_co = Entry(tripo)
+        self.edit_hipotese_co = Entry(tripo)
+        self.edit_outros_co = Text(tripo)
+        self.edit_primeiro_co = Text(tripo)
+        self.edit_telefone_co = Entry(tripo)
+        self.edit_data_co = Entry(tripo)
 
        #=============== CRIANDO LABEL ====================================
 
-        self.lcadastro = Label(trip,bg="#808000",font=('white',16,'bold'), text='CADASTRO DE CLIENTES')
-        self.label_inicial = Label( trip,font=('blak',11,'bold'),bg='brown', text='NOME')
-        self.lidade = Label(trip,font=('blak',11,'bold'),bg='brown', text='IDADE')
-        self.ldata_inicio = Label(trip,font=('blak',11,'bold'),bg='brown', text='DATA DE INICIO' )
-        self.ltelefone = Label(trip,font=('blak',11,'bold'),bg='brown', text='TELEFONE')
-        self.lhipotese = Label(trip,font=('blak',11,'bold'),bg='brown', text='HIPÓTESE DIAGNÓSTICA')
-        self.lprimeiro = Label(trip,font=('blak',11,'bold'),bg='brown', text='PRIMEIRO ATENDIMENTO')
-        self.loutros = Label(trip,font=('blak',11,'bold'),bg='brown', text='OUTROS ATENDIMENTOS')
+        self.lcadastro = Label(tripo,bg="#808000",font=('white',16,'bold'), text='CADASTRO DE CLIENTES')
+        self.label_inicial = Label( tripo,font=('blak',11,'bold'),bg='brown', text='NOME')
+        self.lidade = Label(tripo,font=('blak',11,'bold'),bg='brown', text='IDADE')
+        self.ldata_inicio = Label(tripo,font=('blak',11,'bold'),bg='brown', text='DATA DE INICIO' )
+        self.ltelefone = Label(tripo,font=('blak',11,'bold'),bg='brown', text='TELEFONE')
+        self.lhipotese = Label(tripo,font=('blak',11,'bold'),bg='brown', text='HIPÓTESE DIAGNÓSTICA')
+        self.lprimeiro = Label(tripo,font=('blak',11,'bold'),bg='brown', text='PRIMEIRO ATENDIMENTO')
+        self.loutros = Label(tripo,font=('blak',11,'bold'),bg='brown', text='OUTROS ATENDIMENTOS')
 
 
     def inser_co(self):
@@ -297,7 +298,7 @@ class compon_editar(): ############# Botão  Visualizar ##################
 
 
     def widget_novo(self , tip):
-        self.bbotao = Button(tip, text = 'VOLTAR', command= self.tope1.destroy)
+        self.bbotao = Button(tip, text = 'VOLTAR', command= self.tope3.destroy)
         self.bbotao2 = Button(tip, text = 'SALVAR', command= self.inser_co) 
         self.bbotao.place(relx=0.50, rely=0.850)
         self.bbotao2.place(relx=0.60, rely=0.850)
@@ -462,15 +463,16 @@ class constr(compon_consul, compon_editar):
         self.lista_box_co()
         self.select_lista()
         self.bbotao2.config(state= DISABLED)
+        
     
 
     def janela_inserir(self):
-        self.tope1 = Toplevel(root)
-        self.tope1.geometry("%dx%d+0+0" % (self.w, self.h))
-        self.divisao_tela_ed(self.tope1)
-        self.widget_novo(self.tope1)
+        self.tope3 = Toplevel(root)
+        self.tope3.geometry("%dx%d+0+0" % (self.w, self.h))
+        self.divisao_tela_ed(self.tope3)
+        self.widget_novo(self.tope3)
         
-        self.preencher_co(self.frame_dois)
+        self.preencher_co(self.frame_dois1)
         self.mostrar_co()
         
 
@@ -478,7 +480,6 @@ class constr(compon_consul, compon_editar):
 
 
     def janela_visualizar(self):
-        
         self.tope2 = Toplevel(root)
         self.tope2.geometry("%dx%d+0+0" % (self.w, self.h))
         self.divisao_tela_ed(self.tope2)
