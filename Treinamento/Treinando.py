@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import ttk
+from tkinter import messagebox
 import sqlite3
 
 root = Tk()
@@ -8,13 +9,11 @@ root.geometry("1350x700+5+5")
 
 
 
-
-
 class compon_consul(): ############# Botão  Novo ##################
     def widget_co(self , tip):
         
-        self.bbotao = Button(tip, text = 'ok', command= self.nova_janela)
-        self.bbotao = Button(tip, text = 'DELETAR', command= self.nova_janela)
+        #self.bbotao = Button(tip, text = 'ok', command= self.nova_janela)
+        self.bbotao = Button(tip, text = 'DELETAR', command= self.apagar)
         self.bbotao2 = Button(tip, text = 'VISUALIZAR', command= self.janela_visualizar)
         self.bbotao3 = Button(tip, text = 'VOLTAR', command= self.tope1.destroy)
         self.bbotao2.place(relx=0.50, rely=0.850)
@@ -47,7 +46,6 @@ class compon_consul(): ############# Botão  Novo ##################
         self.frame_dois.place(relx=0.009, rely=0.32, relwidth=0.985, relheight=0.58)
         self.frame_dois.configure(background='brown')
         
-
 
     def lista_box_co(self):
         self.lista = ttk.Treeview(self.frame_um, height = 0, column=('col1','col2','col3', 'col4', 'col5', 'col6', 'col7'))    
@@ -93,7 +91,6 @@ class compon_consul(): ############# Botão  Novo ##################
             self.lista.insert('',END, values=i)
             
 
-
     def preencher_co(self, tripo):
         print(tripo)
         #=============== CRIANDO ENTRY ====================================
@@ -119,22 +116,26 @@ class compon_consul(): ############# Botão  Novo ##################
 
     def inser_co(self):
         self.inicial1 = self.edit_inicial_co.get()
-        self.primeiro1 = self.edit_primeiro_co.get("1.0", 'end')
-        self.idade1 = self.edit_idade_co.get()
-        self.dataInicio = self.edit_data_co.get()
-        self.telefone1 = self.edit_telefone_co.get()
-        self.hipotese1 = self.edit_hipotese_co.get()
-        self.outros1 = self.edit_outros_co.get("1.0", 'end')
+        if self.inicial1 != '':
+            print('Oiiiiiiiiiiiiiiiiiiiiiii')
+            self.primeiro1 = self.edit_primeiro_co.get("1.0", 'end')
+            self.idade1 = self.edit_idade_co.get()
+            self.dataInicio = self.edit_data_co.get()
+            self.telefone1 = self.edit_telefone_co.get()
+            self.hipotese1 = self.edit_hipotese_co.get()
+            self.outros1 = self.edit_outros_co.get("1.0", 'end')
 
-        self.cursor.execute('INSERT INTO clientes(NOME,IDADE,DATA,TELEFONE, HIPOTESE,PRIMEIRO,OUTROS)VALUES(?,?,?,?,?,?,?)',
-        (self.inicial1, self.idade1, self.dataInicio, self.telefone1, self.hipotese1, self.primeiro1, self.outros1))
+            self.cursor.execute('INSERT INTO clientes(NOME,IDADE,DATA,TELEFONE, HIPOTESE,PRIMEIRO,OUTROS)VALUES(?,?,?,?,?,?,?)',
+            (self.inicial1, self.idade1, self.dataInicio, self.telefone1, self.hipotese1, self.primeiro1, self.outros1))
+            self.banco.commit()
+            self.limpar_co()
+            self.tope3.destroy()
+        else:
+            messagebox.showinfo(title= 'Erro', message='O campo Nome não pode estar em branco')
+            self.tope3.destroy()
+            self.janela_inserir()
 
-        self.banco.commit()
-        self.limpar_co()
-        #self.select_lista()
         
-
-
     def mostrar_co(self):
         # =============== MOSTRANDO CAIXA DE TEXTO E BOTÃO ================
 
@@ -166,23 +167,33 @@ class compon_consul(): ############# Botão  Novo ##################
         self.edit_hipotese_co.delete(0, END)
         self.edit_outros_co.delete(1.0, END)
         self.edit_primeiro_co.delete(1.0, END)
-        self.tope1.destroy
-
+        
 
     def dois_clicks(self,event):
+
         self.limpar_co()
         self.bbotao2.config(state=NORMAL)
+        self.bbotao.config(state=NORMAL)
         self.lista.selection()
         for n in self.lista.selection():
             col1, col2, col3, col4, col5, col6, col7 = self.lista.item(n, 'values')
             self.edit_inicial_co.insert(END, col1)
-            
+            self.marca= self.edit_inicial_co.get()
             self.edit_idade_co.insert(END, col2)
             self.edit_telefone_co.insert(END, col3)
             self.edit_data_co.insert(END, col4)               
             self.edit_hipotese_co.insert(END, col5)
             self.edit_primeiro_co.insert(END, col6)
             self.edit_outros_co.insert(END, col7)
+
+
+    def apagar(self):
+        
+        self.cursor.execute('DELETE FROM clientes WHERE NOME=?', (self.marca,))
+        self.tope1.destroy()
+        self.banco.commit()
+        self.janela_consultar()
+
 
 
 '''class compon(): #################### Botão Pesquizar ###############
@@ -296,16 +307,12 @@ class compon_editar(): ############# Botão  Visualizar ##################
         #self.bbotao.place_forget()
 
 
-
     def widget_novo(self , tip):
         self.bbotao = Button(tip, text = 'VOLTAR', command= self.tope3.destroy)
         self.bbotao2 = Button(tip, text = 'SALVAR', command= self.inser_co) 
         self.bbotao.place(relx=0.50, rely=0.850)
         self.bbotao2.place(relx=0.60, rely=0.850)
         #self.bbotao.place_forget()
-
-
-
 
 
     def divisao_tela_ed(self, tip1):
@@ -398,9 +405,10 @@ class compon_editar(): ############# Botão  Visualizar ##################
         self.banco.commit()
         self.edit_inicial.delete(0, END) 
         self.edit_inicial.config(state=DISABLED)
-        
         self.edit_outros.delete(1.0, END)
         self.edit_outros.config(state=DISABLED)
+        self.tope2.destroy()
+
         
 
     def voltar_pri(self):
@@ -412,12 +420,7 @@ class compon_editar(): ############# Botão  Visualizar ##################
         self.janela_consultar()
 
 
-
-
-
-
-             
-
+ 
 class constr(compon_consul, compon_editar):
     def __init__(self):
        
@@ -448,6 +451,7 @@ class constr(compon_consul, compon_editar):
         self.mostrar()
         self.lista_box()
 
+
     def semComando(self):
         print('')
 
@@ -463,21 +467,17 @@ class constr(compon_consul, compon_editar):
         self.lista_box_co()
         self.select_lista()
         self.bbotao2.config(state= DISABLED)
+        self.bbotao.config(state= DISABLED)
         
     
-
     def janela_inserir(self):
         self.tope3 = Toplevel(root)
         self.tope3.geometry("%dx%d+0+0" % (self.w, self.h))
         self.divisao_tela_ed(self.tope3)
         self.widget_novo(self.tope3)
-        
         self.preencher_co(self.frame_dois1)
         self.mostrar_co()
-        
-
-
-
+ 
 
     def janela_visualizar(self):
         self.tope2 = Toplevel(root)
@@ -489,9 +489,4 @@ class constr(compon_consul, compon_editar):
         self.tope1.destroy()
 
 
-
-
 constr()
-
-
-
