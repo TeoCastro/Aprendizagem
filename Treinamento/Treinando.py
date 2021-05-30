@@ -1,11 +1,18 @@
 from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
+from PIL import ImageTk, Image
 import sqlite3
 
 root = Tk()
 #root.title = ('Tela Inicial')
-root.geometry("1350x700+5+5") 
+#root.geometry("1350x700+5+5")
+image2= Image.open(r'C:\Users\siuit\Documents\Python\Aprendizagem\Treinamento\Logo.jpg')
+image1 = ImageTk.PhotoImage(image2)
+background_label = Label(root, image=image1)
+background_label.image1=image1
+background_label.place(x=450, y=100, height=450, width=450)
+
 
 
 
