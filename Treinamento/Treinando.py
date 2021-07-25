@@ -16,6 +16,30 @@ background_label.place(x=450, y=100, height=450, width=450)
 
 
 
+
+class senha_inicio(): ################## SENHA DE ACESSO ######################
+    def constr_senha(self):
+        self.vsenha = StringVar()
+        self.p_senha = Entry(root, textvariable=self.vsenha, show="*")
+        self.bbotao_senha = Button(root, text = 'OK', command= self.testa_senha)
+        self.p_senha.pack()
+        self.bbotao_senha.pack()
+
+
+
+    def testa_senha(self): 
+        if self.vsenha.get() =='sua':
+            self.menus()
+            self.p_senha.delete(0, END)
+
+
+        else:
+            messagebox.showinfo(title= 'Erro', message='Senha Errada! Tente Novamente!')
+            self.p_senha.delete(0, END)
+
+
+
+
 class compon_consul(): ############# Botão  Novo ##################
     def widget_co(self , tip):
         
@@ -428,7 +452,7 @@ class compon_editar(): ############# Botão  Visualizar ##################
 
 
  
-class constr(compon_consul, compon_editar):
+class constr(compon_consul, compon_editar, senha_inicio):
     def __init__(self):
        
         self.root=root
@@ -436,8 +460,9 @@ class constr(compon_consul, compon_editar):
         self.w, self.h = root.winfo_screenwidth(), root.winfo_screenheight()
         root.geometry("%dx%d+0+0" % (self.w, self.h))
         
-        self.menus()
+        #self.menus()
         self.conecta_banco()
+        self.constr_senha()
 
         
 
@@ -482,8 +507,12 @@ class constr(compon_consul, compon_editar):
         self.tope3.geometry("%dx%d+0+0" % (self.w, self.h))
         self.divisao_tela_ed(self.tope3)
         self.widget_novo(self.tope3)
+        '''widget10 = self.tope3.focus_get()
+        print(widget10)'''
         self.preencher_co(self.frame_dois1)
         self.mostrar_co()
+        #self.bbotao2.config(state= DISABLED)
+        #self.bbotao.config(state= DISABLED)
  
 
     def janela_visualizar(self):
