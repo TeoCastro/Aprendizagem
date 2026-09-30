@@ -7,7 +7,7 @@ import sqlite3
 root = Tk()
 #root.title = ('Tela Inicial')
 root.geometry("1350x700+5+5")
-image2= Image.open(r'C:\Users\siuit\Documents\Python\Aprendizagem\Treinamento\Logo.jpg')
+image2= Image.open('Logo.jpg')
 image1 = ImageTk.PhotoImage(image2)
 background_label = Label(root, image=image1)
 background_label.image1=image1
